@@ -33,18 +33,16 @@ getStoredFields().then((metrics: MetricsObject) => {
 			// Loop through each row in the table to find and extract relevant data
 			tableRows.forEach((row) => {
 				const titleCell = row.querySelector('td.title-cell'); // Locate the title cell
-
 				// If title cell exists, check if it contains any of the metric keywords
 				if (titleCell) {
-					const matches = keywords.some((keyword) =>
-						titleCell.textContent
-							?.trim()
-							.toLowerCase()
-							.includes(keyword.toLowerCase())
-					);
+					const matches = keywords.some((keyword) => {
+						const regex = new RegExp(`\\b${keyword.trim()}\\b`, 'i'); // Case-insensitive word boundary match
+						return regex.test(titleCell.textContent?.trim());
+					});
 
 					// If a match is found, extract numerical values from the corresponding row
 					if (matches) {
+						console.log(matches);
 						const values: number[] = []; // Array to store numeric values for this row
 						const valueCells = row.querySelectorAll('td.val'); // Select value cells in the row
 						const headerCells = document.querySelectorAll(
@@ -81,7 +79,6 @@ getStoredFields().then((metrics: MetricsObject) => {
 	// Format the updated metrics in LocalStorage structure for saving
 	const storageObject: LocalStorage = { metrics: updatedMetrics };
 
-	console.log('Storage object:', storageObject.metrics.pe.values);
 	// Save the updated metrics back to Chrome local storage
 	setStoredFields(storageObject);
 });
