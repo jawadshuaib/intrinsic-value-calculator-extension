@@ -7,14 +7,12 @@ import './options.css';
 import {
 	getStoredFields,
 	setStoredFields,
-	LocalStorage,
 	DEFAULT_METRICS,
+	MetricsObject,
 } from '../storage/storage';
 
 const App = function () {
-	const [fields, setFields] = useState<LocalStorage['metrics']>(
-		DEFAULT_METRICS.metrics
-	);
+	const [fields, setFields] = useState<MetricsObject>(DEFAULT_METRICS.metrics);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -30,10 +28,7 @@ const App = function () {
 	}, []);
 
 	// Handler to update fields in state
-	const handleFieldChange = (
-		field: keyof LocalStorage['metrics'],
-		value: string
-	) => {
+	const handleFieldChange = (field: keyof MetricsObject, value: string) => {
 		setFields((prevFields) => ({
 			...prevFields,
 			[field]: value,
@@ -45,6 +40,7 @@ const App = function () {
 		try {
 			await setStoredFields({ metrics: fields });
 			toast.success('Fields saved successfully!');
+			console.log(fields);
 		} catch (error) {
 			toast.error('Failed to save fields.');
 		}
@@ -67,21 +63,21 @@ const App = function () {
 					<div className='mb-6'>
 						<h3 className='text-xl mb-2'>Rate of Return</h3>
 						<FormField
-							title='Return on Capital Employed'
-							field='roce'
-							value={fields.roce}
+							title={fields.roce.title}
+							field={fields.roce.abv}
+							value={fields.roce.matches}
 							onChange={handleFieldChange}
 						/>
 						<FormField
-							title='Return on Equity'
-							field='roe'
-							value={fields.roe}
+							title={fields.roe.title}
+							field={fields.roe.abv}
+							value={fields.roe.matches}
 							onChange={handleFieldChange}
 						/>
 						<FormField
-							title='Return on Assets'
-							field='roa'
-							value={fields.roa}
+							title={fields.roa.title}
+							field={fields.roa.abv}
+							value={fields.roa.matches}
 							onChange={handleFieldChange}
 						/>
 					</div>
@@ -89,21 +85,21 @@ const App = function () {
 					<div className='mb-6'>
 						<h3 className='text-xl mb-2'>Growth Rates</h3>
 						<FormField
-							title='Sales per Share'
-							field='sps'
-							value={fields.sps}
+							title={fields.sps.title}
+							field={fields.sps.abv}
+							value={fields.sps.matches}
 							onChange={handleFieldChange}
 						/>
 						<FormField
-							title='Earnings per Share'
-							field='eps'
-							value={fields.eps}
+							title={fields.eps.title}
+							field={fields.eps.abv}
+							value={fields.eps.matches}
 							onChange={handleFieldChange}
 						/>
 						<FormField
-							title='Book Value per Share'
-							field='bvps'
-							value={fields.bvps}
+							title={fields.bvps.title}
+							field={fields.bvps.abv}
+							value={fields.bvps.matches}
 							onChange={handleFieldChange}
 						/>
 					</div>
@@ -111,9 +107,9 @@ const App = function () {
 					<div className='mb-6'>
 						<h3 className='text-xl mb-2'>Valuation Ratios</h3>
 						<FormField
-							title='Price to Earnings Ratio'
-							field='pe'
-							value={fields.pe}
+							title={fields.pe.title}
+							field={fields.pe.abv}
+							value={fields.pe.matches}
 							onChange={handleFieldChange}
 						/>
 					</div>
@@ -130,9 +126,9 @@ const App = function () {
 // Updated FormField Component
 interface FormFieldProps {
 	title: string;
-	field: keyof LocalStorage['metrics'];
+	field: keyof MetricsObject;
 	value: string;
-	onChange: (field: keyof LocalStorage['metrics'], value: string) => void;
+	onChange: (field: keyof MetricsObject, value: string) => void;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
