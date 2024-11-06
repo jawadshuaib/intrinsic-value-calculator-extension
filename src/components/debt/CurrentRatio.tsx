@@ -25,7 +25,7 @@ export const CurrentRatio = function ({ metrics }: { metrics: MetricsObject }) {
 	};
 	const color = getColor(currentRatio, thresholds);
 	return (
-		<span className={`ml-1 p-3 border rounded-md text-lg ${color}`}>
+		<span className={`p-3 border rounded-md text-lg ${color}`}>
 			Current Ratio:{' '}
 			<span className='font-bold'>{currentRatio.toFixed(2)}</span>
 		</span>

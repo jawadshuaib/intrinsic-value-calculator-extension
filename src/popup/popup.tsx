@@ -5,10 +5,9 @@ import { getStoredFields, Metric, MetricsObject } from '../storage/storage';
 import { RateOfReturnSection } from '../components/rateOfReturn/RateOfReturnSection';
 import { GrowthRateSection } from '../components/growthRate/GrowthRateSection';
 import { ValuationsRatioSection } from '../components/valuationRatios/ValuationRatios';
-import { EPS } from '../components/eps/EPS';
-import { CurrentRatio } from '../components/debt/CurrentRatio';
 import { Score } from '../components/score/Score';
 import { IntrinsicValue } from '../components/valuation/IntrinsicValue';
+import { DebtProfileSection } from '../components/debt/DebtProfileSection';
 
 const App = function () {
 	const [metrics, setMetrics] = useState<MetricsObject | null>(null);
@@ -33,10 +32,7 @@ const App = function () {
 			<RateOfReturnSection metrics={metrics} />
 			<GrowthRateSection metrics={metrics} />
 			<ValuationsRatioSection metrics={metrics} />
-			<section className='pt-2'>
-				<EPS metrics={metrics} />
-				<CurrentRatio metrics={metrics} />
-			</section>
+			<DebtProfileSection metrics={metrics} />
 		</section>
 	);
 };

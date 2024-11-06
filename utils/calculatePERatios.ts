@@ -1,12 +1,12 @@
 // Objective: Calculate PE ratios from metrics data
 // The function should take in a metrics object and return an array of PE ratios
-import { MetricsObject, ValuationRatios } from '../src/storage/storage';
+import { MetricsObject, PE } from '../src/storage/storage';
 import calculateMedian from './calculateMedian';
 import extractMetricsData from './extractMetricsData';
-import filterMetricsBySection from './filterMetricsBySection';
+import filterMetricsByAbv from './filterMetricsByAbv';
 
 export default function calculatePERatios(metrics: MetricsObject) {
-	const peMetrics = filterMetricsBySection(metrics, ValuationRatios);
+	const peMetrics = filterMetricsByAbv(metrics, PE);
 	const peData = extractMetricsData(peMetrics);
 	const peRatios = [];
 	peData.forEach((metric) => {

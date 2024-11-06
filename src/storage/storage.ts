@@ -24,6 +24,8 @@ export const RateOfReturn = 'rate_of_return';
 export const GrowthRates = 'growth_rates';
 export const ValuationRatios = 'valuation_ratios';
 export const DebtProfile = 'debt_profile';
+export const PE = 'pe';
+
 const CAGR = 'cagr';
 const Median = 'median';
 
