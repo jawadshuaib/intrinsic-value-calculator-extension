@@ -26,8 +26,10 @@ const App = function () {
 
 	return (
 		<section>
-			<EPS metrics={metrics} />
-			<CurrentRatio metrics={metrics} />
+			<section className='my-4'>
+				<EPS metrics={metrics} />
+				<CurrentRatio metrics={metrics} />
+			</section>
 			<RateOfReturnSection metrics={metrics} />
 			<GrowthRateSection metrics={metrics} />
 			<ValuationsRatioSection metrics={metrics} />

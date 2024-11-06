@@ -35,7 +35,7 @@ export default function calculateMedian(
 	if (arr.length === 0) {
 		throw new Error("Array can't be empty");
 	}
-	const currentMedian = parseFloat(arr[0].toFixed(2));
+	const currentMedian = parseFloat(effectiveArr[0].toFixed(2));
 
 	return {
 		full: {

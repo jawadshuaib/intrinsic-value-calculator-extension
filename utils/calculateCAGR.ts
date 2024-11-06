@@ -38,7 +38,7 @@ export default function calculateCAGR(
 	// Calculate CAGR for the current year (based on the last two values in the original array)
 	const currentCAGR =
 		arr.length > 1
-			? calculateCAGR(arr[1], arr[0], 1) // Period is 1 year between the two most recent values
+			? calculateCAGR(effectiveArr[1], effectiveArr[0], 1) // Period is 1 year between the two most recent values
 			: 0;
 
 	return {
@@ -52,7 +52,7 @@ export default function calculateCAGR(
 		},
 		current: {
 			cagr: parseFloat((currentCAGR * 100).toFixed(2)), // Converted to percentage
-			length: 2, // Length is 2 because it’s based on the last two years
+			length: 2,
 		},
 	};
 }

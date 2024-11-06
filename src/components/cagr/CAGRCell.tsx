@@ -24,9 +24,11 @@ export const CAGRCell = function ({
 	return (
 		<Table.Row>
 			<Table.Cell>{title}</Table.Cell>
-			<Table.Cell className={`${getColor(current, thresholds)}`}>
-				{current}%
-			</Table.Cell>
+			{cagrs.current.length < cagrs.half.length && (
+				<Table.Cell className={`${getColor(current, thresholds)}`}>
+					{current}%
+				</Table.Cell>
+			)}
 			<Table.Cell className={`${getColor(half, thresholds)}`}>
 				{half}%
 			</Table.Cell>

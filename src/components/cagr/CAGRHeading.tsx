@@ -7,7 +7,9 @@ export const CAGRHeading = function ({ values }: { values: number[] }) {
 	return (
 		<Table.Head>
 			<Table.HeadCell>&nbsp;</Table.HeadCell>
-			<Table.HeadCell>{cagrs.current.length} year</Table.HeadCell>
+			{cagrs.current.length < cagrs.half.length && (
+				<Table.HeadCell>1 year</Table.HeadCell>
+			)}
 			<Table.HeadCell>{cagrs.half.length} years</Table.HeadCell>
 			<Table.HeadCell>{cagrs.full.length} years</Table.HeadCell>
 		</Table.Head>
