@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { GrowthRates, MetricsObject } from '../../storage/storage';
 import calculateMedian from '../../../utils/calculateMedian';
 import calculateOverallScore, {
@@ -12,35 +12,40 @@ import { getColor } from '../../../utils/getColor';
 
 export const GrowthRateScore = function ({
 	metrics,
-	setScore,
+	onUpdate,
 }: {
 	metrics: MetricsObject;
-	setScore: React.Dispatch<
-		React.SetStateAction<{ growthRate: number; rateOfReturn: number }>
-	>;
+	onUpdate: (value: number) => void;
 }) {
-	const growthRateMetrics = filterMetricsBySection(metrics, GrowthRates);
-	const growthRateData = extractMetricsData(growthRateMetrics);
+	// Use useMemo to memoize the calculated average to avoid recalculating it on every render.
+	const avg = useMemo(() => {
+		const growthRateMetrics = filterMetricsBySection(metrics, GrowthRates);
+		const growthRateData = extractMetricsData(growthRateMetrics);
 
-	let total = 0;
-	growthRateData.forEach((metric) => {
-		const cagrs = calculateCAGR(metric.values);
+		let total = 0;
+		growthRateData.forEach((metric) => {
+			const cagrs = calculateCAGR(metric.values);
 
-		const current = cagrs.current.cagr;
-		const half = cagrs.half.cagr;
-		const full = cagrs.full.cagr;
+			const current = cagrs.current.cagr;
+			const half = cagrs.half.cagr;
+			const full = cagrs.full.cagr;
 
-		const score = calculateOverallScore(
-			[current, half, full],
-			RateOfReturnThresholds
-		);
-		total += score;
-	});
+			const score = calculateOverallScore(
+				[current, half, full],
+				RateOfReturnThresholds
+			);
+			total += score;
+		});
 
-	const avg = total / growthRateData.length;
+		return total / growthRateData.length;
+	}, [metrics]); // Only recalculate if `metrics` changes.
+
+	// Use useEffect to trigger the update only when `avg` changes.
+	useEffect(() => {
+		onUpdate(avg);
+	}, [avg, onUpdate]);
+
 	const percentage = (avg * 100).toFixed(0);
-	setScore((prev) => ({ ...prev, growthRate: Number(percentage) }));
-
 	const color = getColor(avg, OverallScoreThresholds);
 
 	return (

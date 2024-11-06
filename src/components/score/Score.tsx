@@ -8,15 +8,24 @@ import { OverallScoreThresholds } from '../../../utils/calculateOverallScore';
 import { getColor } from '../../../utils/getColor';
 
 export const Score = function ({ metrics }: { metrics: MetricsObject }) {
-	const [score, setScore] = useState({ growthRate: 0, rateOfReturn: 0 });
-	const avg = (score.growthRate + score.rateOfReturn) / 2;
+	const [rateOfReturn, setRateOfReturn] = useState(0);
+	const [growthRate, setGrowthRate] = useState(0);
+	const avg = (rateOfReturn + growthRate) / 2;
 
-	const avgColor = getColor(avg / 100, OverallScoreThresholds);
+	const avgColor = getColor(avg, OverallScoreThresholds);
 
 	const customTheme: CustomFlowbiteTheme['table'] = {
 		root: {
 			shadow: '',
 		},
+	};
+
+	const updateRateOfReturn = (value: number) => {
+		setRateOfReturn(value);
+	};
+
+	const updateGrowthRate = (value: number) => {
+		setGrowthRate(value);
 	};
 
 	return (
@@ -25,17 +34,20 @@ export const Score = function ({ metrics }: { metrics: MetricsObject }) {
 				<Table.Row>
 					<Table.Cell colSpan={2} className={avgColor}>
 						{/* Overall Score  */}
-						<AverageScore avg={Number(avg.toFixed(0))} />
+						<AverageScore avg={avg} />
 					</Table.Cell>
 				</Table.Row>
 				<Table.Row>
 					<Table.Cell>
 						{/* Management */}
-						<RateOfReturnScore metrics={metrics} setScore={setScore} />
+						<RateOfReturnScore
+							metrics={metrics}
+							onUpdate={updateRateOfReturn}
+						/>
 					</Table.Cell>
 					<Table.Cell>
 						{/* Moat */}
-						<GrowthRateScore metrics={metrics} setScore={setScore} />
+						<GrowthRateScore metrics={metrics} onUpdate={updateGrowthRate} />
 					</Table.Cell>
 				</Table.Row>
 			</Table.Body>
