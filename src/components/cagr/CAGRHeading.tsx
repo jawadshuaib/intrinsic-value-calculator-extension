@@ -4,7 +4,6 @@ import calculateCAGR from '../../../utils/calculateCAGR';
 
 export const CAGRHeading = function ({ values }: { values: number[] }) {
 	const cagrs = calculateCAGR(values);
-	console.log(cagrs);
 	return (
 		<Table.Head>
 			<Table.HeadCell>&nbsp;</Table.HeadCell>

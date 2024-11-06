@@ -8,12 +8,14 @@ interface MedianCellProps {
 	title: string;
 	values: number[];
 	thresholds?: Thresholds;
+	showPercentage: boolean;
 }
 
 export const MedianCell = function ({
 	title,
 	values,
 	thresholds,
+	showPercentage,
 }: MedianCellProps) {
 	const medians = calculateMedian(values);
 
@@ -21,17 +23,21 @@ export const MedianCell = function ({
 	const half = medians.half.median;
 	const full = medians.full.median;
 
+	const percentage = showPercentage ? '%' : '';
 	return (
 		<Table.Row>
 			<Table.Cell>{title}</Table.Cell>
 			<Table.Cell className={`${getColor(current, thresholds)}`}>
-				{current}%
+				{current}
+				{percentage}
 			</Table.Cell>
 			<Table.Cell className={`${getColor(half, thresholds)}`}>
-				{half}%
+				{half}
+				{percentage}
 			</Table.Cell>
 			<Table.Cell className={`${getColor(full, thresholds)}`}>
-				{full}%
+				{full}
+				{percentage}
 			</Table.Cell>
 		</Table.Row>
 	);

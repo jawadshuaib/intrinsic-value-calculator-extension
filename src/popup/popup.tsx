@@ -5,6 +5,7 @@ import { getStoredFields, Metric, MetricsObject } from '../storage/storage';
 import { RateOfReturnSection } from '../components/rateOfReturn/RateOfReturnSection';
 import { GrowthRateSection } from '../components/growthRate/GrowthRateSection';
 import { ValuationsRatioSection } from '../components/valuationRatios/ValuationRatios';
+import { EPS } from '../components/eps/EPS';
 
 const App = function () {
 	const [metrics, setMetrics] = useState<MetricsObject | null>(null);
@@ -24,6 +25,7 @@ const App = function () {
 
 	return (
 		<section>
+			<EPS metrics={metrics} />
 			<RateOfReturnSection metrics={metrics} />
 			<GrowthRateSection metrics={metrics} />
 			<ValuationsRatioSection metrics={metrics} />

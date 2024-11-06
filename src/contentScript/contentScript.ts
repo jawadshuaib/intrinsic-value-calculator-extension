@@ -42,7 +42,6 @@ getStoredFields().then((metrics: MetricsObject) => {
 
 					// If a match is found, extract numerical values from the corresponding row
 					if (matches) {
-						console.log(matches);
 						const values: number[] = []; // Array to store numeric values for this row
 						const valueCells = row.querySelectorAll('td.val'); // Select value cells in the row
 						const headerCells = document.querySelectorAll(

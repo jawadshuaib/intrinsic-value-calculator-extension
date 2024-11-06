@@ -1,6 +1,6 @@
 import React from 'react';
 import { MedianCell } from './MedianCell';
-import { Metric } from '../../storage/storage';
+import { Metric, RateOfReturn } from '../../storage/storage';
 import { Table } from 'flowbite-react';
 import { Thresholds } from '../types';
 
@@ -19,6 +19,7 @@ export const MedianBody = function ({ metrics, thresholds }: MedianBodyProps) {
 						title={metric.title}
 						values={metric.values}
 						thresholds={thresholds}
+						showPercentage={metric.section === RateOfReturn ? true : false}
 					/>
 				) : (
 					'No values available'
