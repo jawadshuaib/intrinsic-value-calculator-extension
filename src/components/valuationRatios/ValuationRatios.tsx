@@ -3,6 +3,8 @@ import { MetricsObject, ValuationRatios } from '../../storage/storage';
 import { MedianTable } from '../median/MedianTable';
 import { MedianHeading } from '../median/MedianHeading';
 import { MedianBody } from '../median/MedianBody';
+import filterMetricsBySection from '../../../utils/filterMetricsBySection';
+import extractMetricsData from '../../../utils/extractMetricsData';
 
 // Filters and displays all metrics in the valuation_ratios section
 export const ValuationsRatioSection = function ({
@@ -10,13 +12,8 @@ export const ValuationsRatioSection = function ({
 }: {
 	metrics: MetricsObject;
 }) {
-	const valuationMetrics = Object.entries(metrics).filter(
-		([_, metric]) => metric.section === ValuationRatios
-	);
-
-	const valuationData = valuationMetrics
-		.map(([_, metric]) => metric)
-		.filter((metric) => metric.values.length > 0);
+	const valuationMetrics = filterMetricsBySection(metrics, ValuationRatios);
+	const valuationData = extractMetricsData(valuationMetrics);
 
 	return (
 		<section className='my-3'>

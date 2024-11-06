@@ -3,6 +3,8 @@ import { MetricsObject, RateOfReturn } from '../../storage/storage';
 import { MedianTable } from '../median/MedianTable';
 import { MedianHeading } from '../median/MedianHeading';
 import { MedianBody } from '../median/MedianBody';
+import filterMetricsBySection from '../../../utils/filterMetricsBySection';
+import extractMetricsData from '../../../utils/extractMetricsData';
 
 export const RateOfReturnThresholds = {
 	great: 20,
@@ -17,13 +19,8 @@ export const RateOfReturnSection = function ({
 }) {
 	const thresholds = RateOfReturnThresholds;
 
-	const rateOfReturnMetrics = Object.entries(metrics).filter(
-		([_, metric]) => metric.section === RateOfReturn
-	);
-
-	const rateOfReturnData = rateOfReturnMetrics
-		.map(([_, metric]) => metric)
-		.filter((metric) => metric.values.length > 0);
+	const rateOfReturnMetrics = filterMetricsBySection(metrics, RateOfReturn);
+	const rateOfReturnData = extractMetricsData(rateOfReturnMetrics);
 
 	return (
 		<section className='my-3'>

@@ -6,6 +6,8 @@ import { MedianBody } from '../median/MedianBody';
 import { CAGRTable } from '../cagr/CAGRTable';
 import { CAGRHeading } from '../cagr/CAGRHeading';
 import { CAGRBody } from '../cagr/CAGRBody';
+import filterMetricsBySection from '../../../utils/filterMetricsBySection';
+import extractMetricsData from '../../../utils/extractMetricsData';
 
 // GrowthRateSection filters and displays all metrics in the growth_rate section
 export const GrowthRateSection = function ({
@@ -19,13 +21,8 @@ export const GrowthRateSection = function ({
 		ok: 5,
 	};
 
-	const growthRateMetrics = Object.entries(metrics).filter(
-		([_, metric]) => metric.section === GrowthRates
-	);
-
-	const growthRateData = growthRateMetrics
-		.map(([_, metric]) => metric)
-		.filter((metric) => metric.values.length > 0);
+	const growthRateMetrics = filterMetricsBySection(metrics, GrowthRates);
+	const growthRateData = extractMetricsData(growthRateMetrics);
 
 	return (
 		<section className='my-3'>

@@ -56,14 +56,3 @@ export default function calculateCAGR(
 		},
 	};
 }
-
-// Example usage
-// const years = [
-// 	15.638373706903813, 2.9776279220581516, 1.7564518624212377, 6.199458367157659,
-// 	2.4074853786631185, -6.903429035176025, 1.9676393341147285, 1.5517260705657399,
-// ];
-// const cagrs = calculateCAGR(years);
-
-// console.log("Full array CAGR and length:", cagrs.full);
-// console.log("Half array CAGR and length:", cagrs.half);
-// console.log("Current CAGR and length:", cagrs.current);

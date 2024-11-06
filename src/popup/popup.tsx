@@ -8,6 +8,7 @@ import { ValuationsRatioSection } from '../components/valuationRatios/ValuationR
 import { EPS } from '../components/eps/EPS';
 import { CurrentRatio } from '../components/debt/CurrentRatio';
 import { Score } from '../components/score/Score';
+import { IntrinsicValue } from '../components/valuation/IntrinsicValue';
 
 const App = function () {
 	const [metrics, setMetrics] = useState<MetricsObject | null>(null);
@@ -28,6 +29,7 @@ const App = function () {
 	return (
 		<section>
 			<Score metrics={metrics} />
+			<IntrinsicValue metrics={metrics} />
 			<RateOfReturnSection metrics={metrics} />
 			<GrowthRateSection metrics={metrics} />
 			<ValuationsRatioSection metrics={metrics} />
