@@ -14,7 +14,9 @@ export const ValuationsRatioSection = function ({
 		([_, metric]) => metric.section === ValuationRatios
 	);
 
-	const valuationData = valuationMetrics.map(([_, metric]) => metric);
+	const valuationData = valuationMetrics
+		.map(([_, metric]) => metric)
+		.filter((metric) => metric.values.length > 0);
 
 	return (
 		<section className='my-3'>

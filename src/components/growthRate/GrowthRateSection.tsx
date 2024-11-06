@@ -23,7 +23,10 @@ export const GrowthRateSection = function ({
 		([_, metric]) => metric.section === GrowthRates
 	);
 
-	const growthRateData = growthRateMetrics.map(([_, metric]) => metric);
+	const growthRateData = growthRateMetrics
+		.map(([_, metric]) => metric)
+		.filter((metric) => metric.values.length > 0);
+
 	return (
 		<section className='my-3'>
 			<h2 className='text-xl mb-2'>Compounded Annual Growth Rates</h2>

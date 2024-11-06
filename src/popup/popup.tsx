@@ -7,6 +7,7 @@ import { GrowthRateSection } from '../components/growthRate/GrowthRateSection';
 import { ValuationsRatioSection } from '../components/valuationRatios/ValuationRatios';
 import { EPS } from '../components/eps/EPS';
 import { CurrentRatio } from '../components/debt/CurrentRatio';
+import { Score } from '../components/score/Score';
 
 const App = function () {
 	const [metrics, setMetrics] = useState<MetricsObject | null>(null);
@@ -26,6 +27,7 @@ const App = function () {
 
 	return (
 		<section>
+			<Score metrics={metrics} />
 			<section className='my-4'>
 				<EPS metrics={metrics} />
 				<CurrentRatio metrics={metrics} />

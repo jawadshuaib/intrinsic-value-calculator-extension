@@ -4,23 +4,26 @@ import { MedianTable } from '../median/MedianTable';
 import { MedianHeading } from '../median/MedianHeading';
 import { MedianBody } from '../median/MedianBody';
 
+export const RateOfReturnThresholds = {
+	great: 20,
+	good: 15,
+	ok: 10,
+};
 // RateOfReturn filters and displays all metrics in the rate_of_return section
 export const RateOfReturnSection = function ({
 	metrics,
 }: {
 	metrics: MetricsObject;
 }) {
-	const thresholds = {
-		great: 20,
-		good: 15,
-		ok: 10,
-	};
+	const thresholds = RateOfReturnThresholds;
 
 	const rateOfReturnMetrics = Object.entries(metrics).filter(
 		([_, metric]) => metric.section === RateOfReturn
 	);
 
-	const rateOfReturnData = rateOfReturnMetrics.map(([_, metric]) => metric);
+	const rateOfReturnData = rateOfReturnMetrics
+		.map(([_, metric]) => metric)
+		.filter((metric) => metric.values.length > 0);
 
 	return (
 		<section className='my-3'>
