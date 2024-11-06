@@ -18,7 +18,7 @@ const SensitivityTable = ({
 				<Table.HeadCell className='text-center'>Future P/E</Table.HeadCell>
 				{growthRates.map((rate, index) => (
 					<Table.HeadCell key={index} className='text-center'>
-						Growth Rate {rate}%
+						Growth Rate {rate.toFixed(0)}%
 					</Table.HeadCell>
 				))}
 			</Table.Head>
@@ -31,7 +31,7 @@ const SensitivityTable = ({
 								key={colIndex}
 								currentEPS={currentEPS}
 								pe={pe}
-								rate={rate}
+								rate={parseFloat(rate.toFixed(0))}
 								ror={ror}
 							/>
 						))}

@@ -23,7 +23,11 @@ const App = function () {
 	}, []);
 
 	if (!metrics)
-		return <div>No matches found on this page for valuation purposes.</div>;
+		return (
+			<div className='text-lg'>
+				No matches found on this page for valuation purposes.
+			</div>
+		);
 
 	return (
 		<section>

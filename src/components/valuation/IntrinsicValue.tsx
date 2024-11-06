@@ -16,7 +16,7 @@ export const IntrinsicValue = function ({
 	// Required rate of return
 	const ror = 15;
 	const currentEPS = epsMetrics[0][1].values[0];
-	const peRatios = calculatePERatios(metrics);
+	const peRatios = calculatePERatios(metrics).sort((a, b) => a - b);
 	const growthRate = calculateGrowthRate(metrics);
 
 	const growthRates = [

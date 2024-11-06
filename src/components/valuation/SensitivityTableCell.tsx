@@ -20,12 +20,21 @@ const SensitivityTableCell = ({
 	);
 	return (
 		<Table.Cell className='text-center'>
-			<div title='Intrinsic Value'>{intrinsicValue.toFixed(2)}</div>
 			<div
-				title='Margin of Safety'
+				title={`Intrinsic Value at a future P/E of ${pe}, growth rate of ${rate.toFixed(
+					0
+				)}% and current EPS of ${currentEPS}`}
+				className='cursor-default'
+			>
+				{intrinsicValue.toFixed(0)}
+			</div>
+			<div
+				title={`Margin of Safety at a future P/E of ${pe}, growth rate of ${rate.toFixed(
+					0
+				)}% and current EPS of ${currentEPS}`}
 				className='rounded border border-slate-300 cursor-default hover:bg-yellow-100'
 			>
-				MoS: {marginOfSafetyPrice.toFixed(2)}
+				MoS: {marginOfSafetyPrice.toFixed(0)}
 			</div>
 		</Table.Cell>
 	);
