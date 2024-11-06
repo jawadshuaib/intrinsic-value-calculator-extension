@@ -3,6 +3,9 @@ import { getColor } from '../../../utils/getColor';
 import { Table } from 'flowbite-react';
 import calculateCAGR from '../../../utils/calculateCAGR';
 import { Thresholds } from '../types';
+import calculateOverallScore, {
+	OverallScoreThresholds,
+} from '../../../utils/calculateOverallScore';
 
 interface CAGRCellProps {
 	title: string;
@@ -21,6 +24,10 @@ export const CAGRCell = function ({
 	const half = cagrs.half.cagr;
 	const full = cagrs.full.cagr;
 
+	const score = calculateOverallScore([current, half, full], thresholds);
+	const scoreColor = score ? getColor(score, OverallScoreThresholds) : '';
+	const scorePercentage = score ? `${(score * 100).toFixed(0)}%` : '';
+
 	return (
 		<Table.Row>
 			<Table.Cell>{title}</Table.Cell>
@@ -34,6 +41,9 @@ export const CAGRCell = function ({
 			</Table.Cell>
 			<Table.Cell className={`${getColor(full, thresholds)}`}>
 				{full}%
+			</Table.Cell>
+			<Table.Cell className={`border-l ${scoreColor}`}>
+				{scorePercentage}
 			</Table.Cell>
 		</Table.Row>
 	);

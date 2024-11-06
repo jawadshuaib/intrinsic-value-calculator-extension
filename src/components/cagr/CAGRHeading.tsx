@@ -12,6 +12,7 @@ export const CAGRHeading = function ({ values }: { values: number[] }) {
 			)}
 			<Table.HeadCell>{cagrs.half.length} years</Table.HeadCell>
 			<Table.HeadCell>{cagrs.full.length} years</Table.HeadCell>
+			<Table.HeadCell>Score</Table.HeadCell>
 		</Table.Head>
 	);
 };
