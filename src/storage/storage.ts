@@ -1,6 +1,6 @@
 export interface Metric {
 	section: string;
-	abv: 'roce' | 'roe' | 'roa' | 'sps' | 'eps' | 'bvps' | 'pe';
+	abv: 'roce' | 'roe' | 'roa' | 'sps' | 'eps' | 'bvps' | 'pe' | 'cr';
 	title: string;
 	matches: string;
 	values?: number[];
@@ -16,12 +16,14 @@ export interface LocalStorage {
 		eps: Metric;
 		bvps: Metric;
 		pe: Metric;
+		cr: Metric;
 	};
 }
 
 export const RateOfReturn = 'rate_of_return';
 export const GrowthRates = 'growth_rates';
 export const ValuationRatios = 'valuation_ratios';
+export const DebtProfile = 'debt_profile';
 const CAGR = 'cagr';
 const Median = 'median';
 
@@ -74,6 +76,13 @@ export const DEFAULT_METRICS: LocalStorage = {
 			abv: 'pe',
 			title: 'Price Earning Ratio',
 			matches: 'PE,Price to Earnings Ratio,Price Earning Ratio',
+			method: Median,
+		},
+		cr: {
+			section: DebtProfile,
+			abv: 'cr',
+			title: 'Current Ratio',
+			matches: 'Current Ratio',
 			method: Median,
 		},
 	},

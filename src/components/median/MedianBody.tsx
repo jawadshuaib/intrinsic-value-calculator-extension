@@ -10,6 +10,9 @@ interface MedianBodyProps {
 }
 
 export const MedianBody = function ({ metrics, thresholds }: MedianBodyProps) {
+	if (metrics.length === 0)
+		return <Table.Body>No metrics available</Table.Body>;
+
 	return (
 		<Table.Body>
 			{metrics.map((metric) =>

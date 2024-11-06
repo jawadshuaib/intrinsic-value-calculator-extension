@@ -17,6 +17,8 @@ export const MedianCell = function ({
 	thresholds,
 	showPercentage,
 }: MedianCellProps) {
+	if (values.length === 0) return;
+
 	const medians = calculateMedian(values);
 
 	const current = medians.current.median;

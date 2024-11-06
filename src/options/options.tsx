@@ -113,6 +113,16 @@ const App = function () {
 							onChange={handleFieldChange}
 						/>
 					</div>
+
+					<div className='mb-6'>
+						<h3 className='text-xl mb-2'>Debt Profile</h3>
+						<FormField
+							title={fields.cr.title}
+							field={fields.cr.abv}
+							value={fields.cr.matches}
+							onChange={handleFieldChange}
+						/>
+					</div>
 				</section>
 				<Button type='button' onClick={handleSave}>
 					Save
