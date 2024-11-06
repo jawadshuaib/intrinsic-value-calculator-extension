@@ -36,5 +36,10 @@ export const RateOfReturnScore = function ({
 	const avg = ((total / rateOfReturnData.length) * 100).toFixed(0);
 	setScore((prev) => ({ ...prev, rateOfReturn: Number(avg) }));
 
-	return <span className='my-3'>Management: {avg}</span>;
+	return (
+		<div className='text-center text-lg'>
+			<div>{avg}</div>
+			<div>Management</div>
+		</div>
+	);
 };

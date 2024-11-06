@@ -37,5 +37,10 @@ export const GrowthRateScore = function ({
 	const avg = ((total / growthRateData.length) * 100).toFixed(0);
 	setScore((prev) => ({ ...prev, growthRate: Number(avg) }));
 
-	return <span className='my-3'>MOAT: {avg}</span>;
+	return (
+		<div className='text-center text-lg'>
+			<div>{avg}</div>
+			<div>MOAT</div>
+		</div>
+	);
 };

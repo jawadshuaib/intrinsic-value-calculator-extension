@@ -33,8 +33,10 @@ export const MedianCell = function ({
 	const percentage = showPercentage ? '%' : '';
 
 	const score = calculateOverallScore([current, half, full], thresholds);
-	const scoreColor = score ? getColor(score, OverallScoreThresholds) : '';
-	const scorePercentage = score ? `${(score * 100).toFixed(0)}%` : '';
+	const scoreColor =
+		score !== undefined ? getColor(score, OverallScoreThresholds) : '';
+	const scorePercentage =
+		score !== undefined ? `${(score * 100).toFixed(0)}%` : '';
 
 	return (
 		<Table.Row>
