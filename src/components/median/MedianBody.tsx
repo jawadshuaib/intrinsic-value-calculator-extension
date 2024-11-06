@@ -23,6 +23,7 @@ export const MedianBody = function ({ metrics, thresholds }: MedianBodyProps) {
 						values={metric.values}
 						thresholds={thresholds}
 						showPercentage={metric.section === RateOfReturn ? true : false}
+						showScore={metric.section === RateOfReturn ? true : false}
 					/>
 				) : (
 					'No values available'

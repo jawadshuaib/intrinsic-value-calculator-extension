@@ -21,7 +21,7 @@ export const ValuationsRatioSection = function ({
 			<h2 className='text-xl mb-2'>Median Valuation Ratios</h2>
 			{valuationMetrics.length > 0 ? (
 				<MedianTable>
-					<MedianHeading values={valuationData[0].values} />
+					<MedianHeading values={valuationData[0].values} showScore={false} />
 					<MedianBody metrics={valuationData} />
 				</MedianTable>
 			) : (

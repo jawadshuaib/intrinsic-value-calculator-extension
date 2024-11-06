@@ -3,12 +3,16 @@ import calculateMedian from '../../../utils/calculateMedian';
 import { getColor } from '../../../utils/getColor';
 import { Table } from 'flowbite-react';
 import { Thresholds } from '../types';
+import calculateOverallScore, {
+	OverallScoreThresholds,
+} from '../../../utils/calculateOverallScore';
 
 interface MedianCellProps {
 	title: string;
 	values: number[];
 	thresholds?: Thresholds;
 	showPercentage: boolean;
+	showScore: boolean;
 }
 
 export const MedianCell = function ({
@@ -16,6 +20,7 @@ export const MedianCell = function ({
 	values,
 	thresholds,
 	showPercentage,
+	showScore = true,
 }: MedianCellProps) {
 	if (values.length === 0) return;
 
@@ -26,6 +31,11 @@ export const MedianCell = function ({
 	const full = medians.full.median;
 
 	const percentage = showPercentage ? '%' : '';
+
+	const score = calculateOverallScore([current, half, full], thresholds);
+	const scoreColor = score ? getColor(score, OverallScoreThresholds) : '';
+	const scorePercentage = score ? `${(score * 100).toFixed(0)}%` : '';
+
 	return (
 		<Table.Row>
 			<Table.Cell>{title}</Table.Cell>
@@ -41,6 +51,11 @@ export const MedianCell = function ({
 				{full}
 				{percentage}
 			</Table.Cell>
+			{showScore && (
+				<Table.Cell className={`border-l ${scoreColor}`}>
+					{scorePercentage}
+				</Table.Cell>
+			)}
 		</Table.Row>
 	);
 };

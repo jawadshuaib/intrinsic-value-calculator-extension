@@ -27,7 +27,7 @@ export const RateOfReturnSection = function ({
 			<h2 className='text-xl mb-2'>Median Rate of Return</h2>
 			{rateOfReturnMetrics.length > 0 ? (
 				<MedianTable>
-					<MedianHeading values={rateOfReturnData[0].values} />
+					<MedianHeading values={rateOfReturnData[0].values} showScore={true} />
 					<MedianBody metrics={rateOfReturnData} thresholds={thresholds} />
 				</MedianTable>
 			) : (
