@@ -15,15 +15,17 @@ const SensitivityTable = ({
 	return (
 		<Table hoverable={true}>
 			<Table.Head>
-				<Table.HeadCell>Future P/E</Table.HeadCell>
+				<Table.HeadCell className='text-center'>Future P/E</Table.HeadCell>
 				{growthRates.map((rate, index) => (
-					<Table.HeadCell key={index}>Growth Rate {rate}%</Table.HeadCell>
+					<Table.HeadCell key={index} className='text-center'>
+						Growth Rate {rate}%
+					</Table.HeadCell>
 				))}
 			</Table.Head>
 			<Table.Body>
 				{peRatios.map((pe, rowIndex) => (
 					<Table.Row key={rowIndex}>
-						<Table.Cell className='font-medium'>{pe}</Table.Cell>
+						<Table.Cell className='font-medium text-center'>{pe}</Table.Cell>
 						{growthRates.map((rate, colIndex) => (
 							<SensitivityTableCell
 								key={colIndex}

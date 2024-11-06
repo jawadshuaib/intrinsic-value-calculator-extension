@@ -11,7 +11,7 @@ export const MedianHeading = function ({
 }) {
 	const medians = calculateMedian(values);
 	return (
-		<Table.Head>
+		<Table.Head className='text-center'>
 			<Table.HeadCell>&nbsp;</Table.HeadCell>
 			<Table.HeadCell>{medians.current.length} year</Table.HeadCell>
 			<Table.HeadCell>{medians.half.length} years</Table.HeadCell>

@@ -26,11 +26,14 @@ export const IntrinsicValue = function ({
 		growthRate,
 	];
 	return (
-		<SensitivityTable
-			ror={ror}
-			currentEPS={currentEPS}
-			peRatios={peRatios}
-			growthRates={growthRates}
-		/>
+		<section className='my-3'>
+			<h2 className='text-xl mb-2'>Intrinsic Valuations</h2>
+			<SensitivityTable
+				ror={ror}
+				currentEPS={currentEPS}
+				peRatios={peRatios}
+				growthRates={growthRates}
+			/>
+		</section>
 	);
 };

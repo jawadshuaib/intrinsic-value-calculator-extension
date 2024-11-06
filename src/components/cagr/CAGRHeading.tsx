@@ -5,7 +5,7 @@ import calculateCAGR from '../../../utils/calculateCAGR';
 export const CAGRHeading = function ({ values }: { values: number[] }) {
 	const cagrs = calculateCAGR(values);
 	return (
-		<Table.Head>
+		<Table.Head className='text-center'>
 			<Table.HeadCell>&nbsp;</Table.HeadCell>
 			{cagrs.current.length < cagrs.half.length && (
 				<Table.HeadCell>1 year</Table.HeadCell>

@@ -5,10 +5,16 @@
 
 body {
 	width: 700px;
-	/* height: 800px; */
 	padding: 8px;
 }
 
+.great,
+.good,
+.ok,
+.poor,
+.transparent {
+	text-align: center;
+}
 .great {
 	background-color: #2f855a;
 	color: #fff;
