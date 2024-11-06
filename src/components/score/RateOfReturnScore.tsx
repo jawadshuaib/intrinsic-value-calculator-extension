@@ -8,8 +8,12 @@ import extractMetricsData from '../../../utils/extractMetricsData';
 
 export const RateOfReturnScore = function ({
 	metrics,
+	setScore,
 }: {
 	metrics: MetricsObject;
+	setScore: React.Dispatch<
+		React.SetStateAction<{ growthRate: number; rateOfReturn: number }>
+	>;
 }) {
 	const rateOfReturnMetrics = filterMetricsBySection(metrics, RateOfReturn);
 	const rateOfReturnData = extractMetricsData(rateOfReturnMetrics);
@@ -30,6 +34,7 @@ export const RateOfReturnScore = function ({
 	});
 
 	const avg = ((total / rateOfReturnData.length) * 100).toFixed(0);
+	setScore((prev) => ({ ...prev, rateOfReturn: Number(avg) }));
 
 	return <span className='my-3'>Management: {avg}</span>;
 };

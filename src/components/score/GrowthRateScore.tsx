@@ -9,8 +9,12 @@ import calculateCAGR from '../../../utils/calculateCAGR';
 
 export const GrowthRateScore = function ({
 	metrics,
+	setScore,
 }: {
 	metrics: MetricsObject;
+	setScore: React.Dispatch<
+		React.SetStateAction<{ growthRate: number; rateOfReturn: number }>
+	>;
 }) {
 	const growthRateMetrics = filterMetricsBySection(metrics, GrowthRates);
 	const growthRateData = extractMetricsData(growthRateMetrics);
@@ -31,6 +35,7 @@ export const GrowthRateScore = function ({
 	});
 
 	const avg = ((total / growthRateData.length) * 100).toFixed(0);
+	setScore((prev) => ({ ...prev, growthRate: Number(avg) }));
 
 	return <span className='my-3'>MOAT: {avg}</span>;
 };
