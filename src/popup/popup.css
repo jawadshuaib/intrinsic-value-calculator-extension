@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 body {
-	width: 600px;
+	width: 700px;
 	/* height: 800px; */
 	padding: 8px;
 }
