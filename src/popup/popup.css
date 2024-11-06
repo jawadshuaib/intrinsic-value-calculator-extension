@@ -8,3 +8,33 @@ body {
 	/* height: 800px; */
 	padding: 8px;
 }
+
+.great {
+	background-color: #2f855a;
+	color: #fff;
+	font-weight: 600;
+}
+
+.good {
+	background-color: #48bb78;
+	color: #fff;
+	font-weight: 600;
+}
+
+.ok {
+	background-color: #f6e05e;
+	color: #000;
+	font-weight: 600;
+}
+
+.poor {
+	background-color: #f56565;
+	color: #000;
+	font-weight: 600;
+}
+
+.transparent {
+	background-color: transparent;
+	color: #000;
+	font-weight: 600;
+}
