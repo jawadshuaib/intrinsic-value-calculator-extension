@@ -1,6 +1,6 @@
 export interface Metric {
 	section: string;
-	abv: 'roce' | 'roe' | 'roa' | 'sps' | 'eps' | 'bvps' | 'pe' | 'cr';
+	abv: 'roce' | 'roe' | 'sps' | 'eps' | 'bvps' | 'pe' | 'cr';
 	title: string;
 	matches: string;
 	values?: number[];
@@ -11,7 +11,7 @@ export interface LocalStorage {
 	metrics: {
 		roce: Metric;
 		roe: Metric;
-		roa: Metric;
+		// roa: Metric;
 		sps: Metric;
 		eps: Metric;
 		bvps: Metric;
@@ -43,13 +43,13 @@ export const DEFAULT_METRICS: LocalStorage = {
 			matches: 'ROE,Return on Equity',
 			method: Median,
 		},
-		roa: {
-			section: RateOfReturn,
-			abv: 'roa',
-			title: 'Return on Assets',
-			matches: 'ROA,Return on Assets',
-			method: Median,
-		},
+		// roa: {
+		// 	section: RateOfReturn,
+		// 	abv: 'roa',
+		// 	title: 'Return on Assets',
+		// 	matches: 'ROA,Return on Assets',
+		// 	method: Median,
+		// },
 		sps: {
 			section: GrowthRates,
 			abv: 'sps',

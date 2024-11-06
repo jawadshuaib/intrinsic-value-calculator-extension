@@ -1,11 +1,14 @@
 import React from 'react';
 import { GrowthRates, MetricsObject } from '../../storage/storage';
 import calculateMedian from '../../../utils/calculateMedian';
-import calculateOverallScore from '../../../utils/calculateOverallScore';
+import calculateOverallScore, {
+	OverallScoreThresholds,
+} from '../../../utils/calculateOverallScore';
 import { RateOfReturnThresholds } from '../rateOfReturn/RateOfReturnSection';
 import filterMetricsBySection from '../../../utils/filterMetricsBySection';
 import extractMetricsData from '../../../utils/extractMetricsData';
 import calculateCAGR from '../../../utils/calculateCAGR';
+import { getColor } from '../../../utils/getColor';
 
 export const GrowthRateScore = function ({
 	metrics,
@@ -34,12 +37,15 @@ export const GrowthRateScore = function ({
 		total += score;
 	});
 
-	const avg = ((total / growthRateData.length) * 100).toFixed(0);
-	setScore((prev) => ({ ...prev, growthRate: Number(avg) }));
+	const avg = total / growthRateData.length;
+	const percentage = (avg * 100).toFixed(0);
+	setScore((prev) => ({ ...prev, growthRate: Number(percentage) }));
+
+	const color = getColor(avg, OverallScoreThresholds);
 
 	return (
-		<div className='text-center text-lg'>
-			<div>{avg}</div>
+		<div className='text-center text-lg border rounded-md'>
+			<div className={color}>{percentage}</div>
 			<div>MOAT</div>
 		</div>
 	);

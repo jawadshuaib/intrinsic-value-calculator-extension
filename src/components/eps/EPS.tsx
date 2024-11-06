@@ -22,7 +22,7 @@ export const EPS = function ({ metrics }: { metrics: MetricsObject }) {
 	const eps = epsValues[0];
 	return (
 		<span className='p-3 bg-slate-100 text-slate-800 border rounded-md text-lg'>
-			Earnings per Share: <span className='font-bold'>{eps}</span>
+			Earnings per Share: <span className='font-bold'>{eps.toFixed(2)}</span>
 		</span>
 	);
 };

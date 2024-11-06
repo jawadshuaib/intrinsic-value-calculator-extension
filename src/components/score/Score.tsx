@@ -4,10 +4,14 @@ import { RateOfReturnScore } from './RateOfReturnScore';
 import { GrowthRateScore } from './GrowthRateScore';
 import AverageScore from './AverageScore';
 import { CustomFlowbiteTheme, Table } from 'flowbite-react';
+import { OverallScoreThresholds } from '../../../utils/calculateOverallScore';
+import { getColor } from '../../../utils/getColor';
 
 export const Score = function ({ metrics }: { metrics: MetricsObject }) {
 	const [score, setScore] = useState({ growthRate: 0, rateOfReturn: 0 });
-	const avg = ((score.growthRate + score.rateOfReturn) / 2).toFixed(0);
+	const avg = (score.growthRate + score.rateOfReturn) / 2;
+
+	const avgColor = getColor(avg / 100, OverallScoreThresholds);
 
 	const customTheme: CustomFlowbiteTheme['table'] = {
 		root: {
@@ -19,9 +23,9 @@ export const Score = function ({ metrics }: { metrics: MetricsObject }) {
 		<Table className='py-3' theme={customTheme}>
 			<Table.Body>
 				<Table.Row>
-					<Table.Cell colSpan={2}>
+					<Table.Cell colSpan={2} className={avgColor}>
 						{/* Overall Score  */}
-						<AverageScore avg={Number(avg)} />
+						<AverageScore avg={Number(avg.toFixed(0))} />
 					</Table.Cell>
 				</Table.Row>
 				<Table.Row>

@@ -1,10 +1,13 @@
 import React from 'react';
 import { MetricsObject, RateOfReturn } from '../../storage/storage';
 import calculateMedian from '../../../utils/calculateMedian';
-import calculateOverallScore from '../../../utils/calculateOverallScore';
+import calculateOverallScore, {
+	OverallScoreThresholds,
+} from '../../../utils/calculateOverallScore';
 import { RateOfReturnThresholds } from '../rateOfReturn/RateOfReturnSection';
 import filterMetricsBySection from '../../../utils/filterMetricsBySection';
 import extractMetricsData from '../../../utils/extractMetricsData';
+import { getColor } from '../../../utils/getColor';
 
 export const RateOfReturnScore = function ({
 	metrics,
@@ -33,12 +36,15 @@ export const RateOfReturnScore = function ({
 		total += score;
 	});
 
-	const avg = ((total / rateOfReturnData.length) * 100).toFixed(0);
-	setScore((prev) => ({ ...prev, rateOfReturn: Number(avg) }));
+	const avg = total / rateOfReturnData.length;
+	const percentage = (avg * 100).toFixed(0);
+	setScore((prev) => ({ ...prev, rateOfReturn: Number(percentage) }));
+
+	const color = getColor(avg, OverallScoreThresholds);
 
 	return (
-		<div className='text-center text-lg'>
-			<div>{avg}</div>
+		<div className='text-center text-lg border rounded-md'>
+			<div className={color}>{percentage}</div>
 			<div>Management</div>
 		</div>
 	);
