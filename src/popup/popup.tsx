@@ -12,11 +12,21 @@ import { DebtProfileSection } from '../components/debt/DebtProfileSection';
 const App = function () {
 	const [metrics, setMetrics] = useState<MetricsObject | null>(null);
 
+	function hasValueLengthGreaterThanOne(data: MetricsObject) {
+		for (let key in data) {
+			if (data[key].values && data[key].values.length > 1) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	useEffect(() => {
 		// Send a message to the background script to execute the contentScript
 		chrome.runtime.sendMessage({ action: 'runContentScript' }, () => {
 			// Fetch the updated fields after contentScript runs
 			getStoredFields().then((metrics) => {
+				if (!hasValueLengthGreaterThanOne(metrics)) return;
 				setMetrics(metrics);
 			});
 		});
@@ -24,13 +34,13 @@ const App = function () {
 
 	if (!metrics)
 		return (
-			<div className='text-lg'>
-				No matches found on this page for valuation purposes.
+			<div className='not-found py-5 text-lg text-center h-10'>
+				Unable to find valuation metrics on this page.
 			</div>
 		);
 
 	return (
-		<section>
+		<section className='popup'>
 			<Score metrics={metrics} />
 			<IntrinsicValue metrics={metrics} />
 			<RateOfReturnSection metrics={metrics} />

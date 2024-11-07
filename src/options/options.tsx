@@ -10,6 +10,8 @@ import {
 	DEFAULT_METRICS,
 	MetricsObject,
 } from '../storage/storage';
+import Heading from '../../ui/Heading';
+import Paragraph from '../../ui/Paragraph';
 
 const App = function () {
 	const [fields, setFields] = useState<MetricsObject>(DEFAULT_METRICS.metrics);
@@ -50,18 +52,24 @@ const App = function () {
 
 	return (
 		<div className='p-4'>
-			<h1 className='text-3xl mb-4'>Options</h1>
+			<Heading size='xl' className='mb-4'>
+				Options
+			</Heading>
 
 			{/* Form Section */}
 			<form className='flex max-w-lg flex-col gap-4 mb-6'>
 				<section className='border rounded-md p-3'>
-					<h2 className='text-2xl'>Fields to Match</h2>
-					<p className='text-sm text-gray-600 mb-4'>
+					<Heading size='lg'>General</Heading>
+					<div>[-] Ignore First Value (e.g. TTM)</div>
+					<Heading size='lg'>Fields to Match</Heading>
+					<Paragraph className='text-slate-500'>
 						Select the fields that you would like to match.
-					</p>
+					</Paragraph>
 
-					<div className='mb-6'>
-						<h3 className='text-xl mb-2'>Rate of Return</h3>
+					<div className='my-3'>
+						<Heading size='md' className='mb-2'>
+							Rate of Return
+						</Heading>
 						<FormField
 							title={fields.roce.title}
 							field={fields.roce.abv}
@@ -74,16 +82,12 @@ const App = function () {
 							value={fields.roe.matches}
 							onChange={handleFieldChange}
 						/>
-						<FormField
-							title={fields.roa.title}
-							field={fields.roa.abv}
-							value={fields.roa.matches}
-							onChange={handleFieldChange}
-						/>
 					</div>
 
 					<div className='mb-6'>
-						<h3 className='text-xl mb-2'>Growth Rates</h3>
+						<Heading size='md' className='mb-2'>
+							Growth Rates
+						</Heading>
 						<FormField
 							title={fields.sps.title}
 							field={fields.sps.abv}
@@ -105,7 +109,9 @@ const App = function () {
 					</div>
 
 					<div className='mb-6'>
-						<h3 className='text-xl mb-2'>Valuation Ratios</h3>
+						<Heading size='md' className='mb-2'>
+							Valuation Ratios
+						</Heading>
 						<FormField
 							title={fields.pe.title}
 							field={fields.pe.abv}
@@ -115,7 +121,9 @@ const App = function () {
 					</div>
 
 					<div className='mb-6'>
-						<h3 className='text-xl mb-2'>Debt Profile</h3>
+						<Heading size='md' className='mb-2'>
+							Debt Profile
+						</Heading>
 						<FormField
 							title={fields.cr.title}
 							field={fields.cr.abv}

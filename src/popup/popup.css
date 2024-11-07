@@ -3,9 +3,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+.popup {
 	width: 700px;
 	padding: 8px;
+}
+
+.not-found {
+	width: 400px;
+	padding: 8px;
+	background-color: beige;
 }
 
 .great,
