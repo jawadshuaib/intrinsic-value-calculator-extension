@@ -14,12 +14,21 @@ import { ValuationsRatioSection } from '../components/valuationRatios/ValuationR
 import { Score } from '../components/score/Score';
 import { IntrinsicValue } from '../components/valuation/IntrinsicValue';
 import { DebtProfileSection } from '../components/debt/DebtProfileSection';
+import useDelayedExecution from '../hook/useDelayedExecution';
+import { Loader } from '../../ui/Loader';
 
 const App = function () {
 	const [metrics, setMetrics] = useState<MetricsObject | null>(null);
-	const [options, setOptions] = useState<OptionsObject>(
-		DEFAULT_METRICS.options
-	);
+	const [options, setOptions] = useState<OptionsObject | null>(null);
+	const [didScrape, setDidScrape] = useState(false);
+	const [forceExecute, setForceExecute] = useState(false);
+
+	// Introduce a small delay to give time for the content script to run
+	// This is to ensure that the content script runs after the popup is opened
+	// It is a bit hacky but it works.
+	useDelayedExecution(() => {
+		setForceExecute(true);
+	}, 100);
 
 	function hasValueLengthGreaterThanOne(data: MetricsObject) {
 		for (let key in data) {
@@ -36,13 +45,14 @@ const App = function () {
 			// Fetch the updated fields after contentScript runs
 			getStoredFields().then((metrics) => {
 				if (!hasValueLengthGreaterThanOne(metrics)) return;
+
 				setMetrics(metrics);
+				setDidScrape(true);
 			});
 		});
-	}, []);
+	}, [forceExecute]);
 
 	// Get stored options on initial render
-	// We are particularly interested in the "ignoreFirst" flag
 	useEffect(() => {
 		getStoredOptions()
 			.then((storedOptions) => {
@@ -53,12 +63,21 @@ const App = function () {
 			});
 	}, []);
 
-	if (!metrics)
+	if (!didScrape) {
 		return (
-			<div className='not-found py-5 text-lg text-center h-10'>
-				Unable to find valuation metrics on this page.
-			</div>
+			<section className='not-found py-5'>
+				<Loader />
+			</section>
 		);
+	}
+
+	if (!metrics && !options) {
+		return (
+			<section className='not-found py-5 text-lg text-center h-10'>
+				Unable to find valuation metrics on this page.
+			</section>
+		);
+	}
 
 	return (
 		<section className='popup'>
