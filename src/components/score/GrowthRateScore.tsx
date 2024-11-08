@@ -1,6 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
-import { GrowthRates, MetricsObject } from '../../storage/storage';
-import calculateMedian from '../../../utils/calculateMedian';
+import {
+	GrowthRates,
+	MetricsObject,
+	OptionsObject,
+} from '../../storage/storage';
 import calculateOverallScore, {
 	OverallScoreThresholds,
 } from '../../../utils/calculateOverallScore';
@@ -12,9 +15,11 @@ import { getColor } from '../../../utils/getColor';
 
 export const GrowthRateScore = function ({
 	metrics,
+	options,
 	onUpdate,
 }: {
 	metrics: MetricsObject;
+	options: OptionsObject;
 	onUpdate: (value: number) => void;
 }) {
 	// Use useMemo to memoize the calculated average to avoid recalculating it on every render.
@@ -24,7 +29,7 @@ export const GrowthRateScore = function ({
 
 		let total = 0;
 		growthRateData.forEach((metric) => {
-			const cagrs = calculateCAGR(metric.values);
+			const cagrs = calculateCAGR(metric.values, options.ignoreFirst);
 
 			const current = cagrs.current.cagr;
 			const half = cagrs.half.cagr;

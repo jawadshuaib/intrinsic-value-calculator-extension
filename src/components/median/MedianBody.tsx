@@ -7,9 +7,14 @@ import { Thresholds } from '../types';
 interface MedianBodyProps {
 	metrics: Metric[];
 	thresholds?: Thresholds;
+	ignoreFirst?: boolean;
 }
 
-export const MedianBody = function ({ metrics, thresholds }: MedianBodyProps) {
+export const MedianBody = function ({
+	metrics,
+	thresholds,
+	ignoreFirst,
+}: MedianBodyProps) {
 	if (metrics.length === 0)
 		return <Table.Body>No metrics available</Table.Body>;
 
@@ -24,6 +29,7 @@ export const MedianBody = function ({ metrics, thresholds }: MedianBodyProps) {
 						thresholds={thresholds}
 						showPercentage={metric.section === RateOfReturn ? true : false}
 						showScore={metric.section === RateOfReturn ? true : false}
+						ignoreFirst={ignoreFirst}
 					/>
 				) : (
 					'No values available'

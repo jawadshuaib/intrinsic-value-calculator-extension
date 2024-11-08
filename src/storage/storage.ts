@@ -8,10 +8,12 @@ export interface Metric {
 }
 
 export interface LocalStorage {
+	options?: {
+		ignoreFirst: boolean;
+	};
 	metrics: {
 		roce: Metric;
 		roe: Metric;
-		// roa: Metric;
 		sps: Metric;
 		eps: Metric;
 		bvps: Metric;
@@ -30,6 +32,9 @@ const CAGR = 'cagr';
 const Median = 'median';
 
 export const DEFAULT_METRICS: LocalStorage = {
+	options: {
+		ignoreFirst: true,
+	},
 	metrics: {
 		roce: {
 			section: RateOfReturn,
@@ -45,13 +50,6 @@ export const DEFAULT_METRICS: LocalStorage = {
 			matches: 'ROE,Return on Equity',
 			method: Median,
 		},
-		// roa: {
-		// 	section: RateOfReturn,
-		// 	abv: 'roa',
-		// 	title: 'Return on Assets',
-		// 	matches: 'ROA,Return on Assets',
-		// 	method: Median,
-		// },
 		sps: {
 			section: GrowthRates,
 			abv: 'sps',
@@ -91,6 +89,7 @@ export const DEFAULT_METRICS: LocalStorage = {
 };
 
 export type MetricsObject = LocalStorage['metrics'];
+export type OptionsObject = LocalStorage['options'];
 
 type LocalStorageKeys = keyof LocalStorage;
 
@@ -109,6 +108,15 @@ export function getStoredFields(): Promise<MetricsObject> {
 		chrome.storage.local.get(keys, (result: Partial<LocalStorage>) => {
 			// Ensure metrics exist in the result before resolving
 			resolve(result.metrics ?? DEFAULT_METRICS.metrics);
+		});
+	});
+}
+
+export function getStoredOptions(): Promise<OptionsObject> {
+	const keys: LocalStorageKeys[] = ['options'];
+	return new Promise((resolve) => {
+		chrome.storage.local.get(keys, (result: Partial<LocalStorage>) => {
+			resolve(result.options ?? DEFAULT_METRICS.options);
 		});
 	});
 }

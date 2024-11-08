@@ -10,15 +10,17 @@ import calculateOverallScore, {
 interface CAGRCellProps {
 	title: string;
 	values: number[];
+	ignoreFirst: boolean;
 	thresholds?: Thresholds;
 }
 
 export const CAGRCell = function ({
 	title,
 	values,
+	ignoreFirst,
 	thresholds,
 }: CAGRCellProps) {
-	const cagrs = calculateCAGR(values);
+	const cagrs = calculateCAGR(values, ignoreFirst);
 
 	const current = cagrs.current.cagr;
 	const half = cagrs.half.cagr;

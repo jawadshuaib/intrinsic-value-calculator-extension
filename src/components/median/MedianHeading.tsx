@@ -5,11 +5,13 @@ import { Table } from 'flowbite-react';
 export const MedianHeading = function ({
 	values,
 	showScore = true,
+	ignoreFirst = false,
 }: {
 	values: number[];
 	showScore: boolean;
+	ignoreFirst?: boolean;
 }) {
-	const medians = calculateMedian(values);
+	const medians = calculateMedian(values, ignoreFirst);
 	return (
 		<Table.Head className='text-center'>
 			<Table.HeadCell>&nbsp;</Table.HeadCell>

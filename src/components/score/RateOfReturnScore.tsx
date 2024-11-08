@@ -1,5 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
-import { MetricsObject, RateOfReturn } from '../../storage/storage';
+import {
+	MetricsObject,
+	OptionsObject,
+	RateOfReturn,
+} from '../../storage/storage';
 import calculateMedian from '../../../utils/calculateMedian';
 import calculateOverallScore, {
 	OverallScoreThresholds,
@@ -11,9 +15,11 @@ import { getColor } from '../../../utils/getColor';
 
 export const RateOfReturnScore = function ({
 	metrics,
+	options,
 	onUpdate,
 }: {
 	metrics: MetricsObject;
+	options: OptionsObject;
 	onUpdate: (value: number) => void;
 }) {
 	// Use useMemo to memoize the calculated average to avoid recalculating it on every render.
@@ -23,7 +29,7 @@ export const RateOfReturnScore = function ({
 
 		let total = 0;
 		rateOfReturnData.forEach((metric) => {
-			const medians = calculateMedian(metric.values);
+			const medians = calculateMedian(metric.values, options.ignoreFirst);
 
 			const current = medians.current.median;
 			const half = medians.half.median;

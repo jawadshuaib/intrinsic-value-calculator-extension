@@ -1,5 +1,9 @@
-import React from 'react';
-import { MetricsObject, RateOfReturn } from '../../storage/storage';
+import React, { useState } from 'react';
+import {
+	MetricsObject,
+	OptionsObject,
+	RateOfReturn,
+} from '../../storage/storage';
 import { MedianTable } from '../median/MedianTable';
 import { MedianHeading } from '../median/MedianHeading';
 import { MedianBody } from '../median/MedianBody';
@@ -14,8 +18,10 @@ export const RateOfReturnThresholds = {
 // RateOfReturn filters and displays all metrics in the rate_of_return section
 export const RateOfReturnSection = function ({
 	metrics,
+	options,
 }: {
 	metrics: MetricsObject;
+	options: OptionsObject;
 }) {
 	const thresholds = RateOfReturnThresholds;
 
@@ -27,8 +33,16 @@ export const RateOfReturnSection = function ({
 			<h2 className='text-xl mb-2'>Median Rate of Return</h2>
 			{rateOfReturnMetrics.length > 0 ? (
 				<MedianTable>
-					<MedianHeading values={rateOfReturnData[0].values} showScore={true} />
-					<MedianBody metrics={rateOfReturnData} thresholds={thresholds} />
+					<MedianHeading
+						values={rateOfReturnData[0].values}
+						showScore={true}
+						ignoreFirst={options.ignoreFirst}
+					/>
+					<MedianBody
+						metrics={rateOfReturnData}
+						thresholds={thresholds}
+						ignoreFirst={options.ignoreFirst}
+					/>
 				</MedianTable>
 			) : (
 				<p>No rate of return metrics found.</p>

@@ -6,10 +6,15 @@ import { Thresholds } from '../types';
 
 interface CAGRBodyProps {
 	metrics: Metric[];
+	ignoreFirst: boolean;
 	thresholds?: Thresholds;
 }
 
-export const CAGRBody = function ({ metrics, thresholds }: CAGRBodyProps) {
+export const CAGRBody = function ({
+	metrics,
+	ignoreFirst,
+	thresholds,
+}: CAGRBodyProps) {
 	return (
 		<Table.Body>
 			{metrics.map((metric) =>
@@ -19,6 +24,7 @@ export const CAGRBody = function ({ metrics, thresholds }: CAGRBodyProps) {
 						title={metric.title}
 						values={metric.values}
 						thresholds={thresholds}
+						ignoreFirst={ignoreFirst}
 					/>
 				) : (
 					'No values available'

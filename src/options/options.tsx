@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Button, Label, TextInput } from 'flowbite-react';
+import { Button, Checkbox, Label } from 'flowbite-react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './options.css';
@@ -9,19 +9,28 @@ import {
 	setStoredFields,
 	DEFAULT_METRICS,
 	MetricsObject,
+	OptionsObject,
+	getStoredOptions,
 } from '../storage/storage';
 import Heading from '../../ui/Heading';
 import Paragraph from '../../ui/Paragraph';
+import FormField from '../../ui/FormField';
 
 const App = function () {
-	const [fields, setFields] = useState<MetricsObject>(DEFAULT_METRICS.metrics);
+	const [matchCriterias, setMatchCriterias] = useState<MetricsObject>(
+		DEFAULT_METRICS.metrics
+	);
+	const [options, setOptions] = useState<OptionsObject>(
+		DEFAULT_METRICS.options
+	);
+
 	const [loading, setLoading] = useState(true);
 
+	// Fetch match criterias from storage on initial render
 	useEffect(() => {
-		// Fetch the stored fields on component mount
 		getStoredFields()
 			.then((storedFields) => {
-				setFields(storedFields || DEFAULT_METRICS.metrics);
+				setMatchCriterias(storedFields || DEFAULT_METRICS.metrics);
 			})
 			.catch(() => {
 				toast.error('Failed to load stored fields.');
@@ -29,22 +38,46 @@ const App = function () {
 			.finally(() => setLoading(false));
 	}, []);
 
-	// Handler to update fields in state
-	const handleFieldChange = (field: keyof MetricsObject, value: string) => {
-		setFields((prevFields) => ({
-			...prevFields,
-			[field]: value,
+	// Fetch options from storage on initial render
+	useEffect(() => {
+		getStoredOptions()
+			.then((storedOptions) => {
+				setOptions(storedOptions || DEFAULT_METRICS.options);
+			})
+			.catch(() => {
+				toast.error('Failed to load stored options.');
+			})
+			.finally(() => setLoading(false));
+	}, []);
+
+	// Handler to update matching criteries in state
+	const handleMatchCriteriaChange = (
+		match: keyof MetricsObject,
+		value: string
+	) => {
+		setMatchCriterias((prevMatchCriterias) => ({
+			...prevMatchCriterias,
+			[match]: {
+				...prevMatchCriterias[match],
+				matches: value, // Update only the 'matches' field of the targeted metric
+			},
+		}));
+	};
+
+	const handleOptionsChange = (option: keyof OptionsObject, value: boolean) => {
+		setOptions((prevOptions) => ({
+			...prevOptions,
+			[option]: value !== undefined ? value : prevOptions[option], // Ensure the value isn't undefined
 		}));
 	};
 
 	// Handler to save fields to storage
 	const handleSave = async () => {
 		try {
-			await setStoredFields({ metrics: fields });
+			await setStoredFields({ metrics: matchCriterias, options });
 			toast.success('Fields saved successfully!');
-			console.log(fields);
 		} catch (error) {
-			toast.error('Failed to save fields.');
+			toast.error('Failed to save match criterias.');
 		}
 	};
 
@@ -56,115 +89,104 @@ const App = function () {
 				Options
 			</Heading>
 
-			{/* Form Section */}
+			{/* Form */}
 			<form className='flex max-w-lg flex-col gap-4 mb-6'>
 				<section className='border rounded-md p-3'>
-					<Heading size='lg'>General</Heading>
-					<div>[-] Ignore First Value (e.g. TTM)</div>
-					<Heading size='lg'>Fields to Match</Heading>
-					<Paragraph className='text-slate-500'>
-						Select the fields that you would like to match.
-					</Paragraph>
+					{/* General Section */}
+					<section>
+						<Heading size='lg'>General</Heading>
+						<div className='flex items-center gap-2'>
+							<Checkbox
+								id='ignoreFirst'
+								checked={options.ignoreFirst}
+								onChange={(e) =>
+									handleOptionsChange('ignoreFirst', e.target.checked)
+								}
+							/>
+							<Label htmlFor='agree' className='flex'>
+								Ignore the first values of the data set (i.e. TTM)
+							</Label>
+						</div>
+					</section>
+					{/* Matching Criteria for Fields */}
+					<section className='mt-3'>
+						<Heading size='lg'>Fields to Match</Heading>
+						<Paragraph className='text-slate-500'>
+							Select the fields that you would like to match.
+						</Paragraph>
 
-					<div className='my-3'>
-						<Heading size='md' className='mb-2'>
-							Rate of Return
-						</Heading>
-						<FormField
-							title={fields.roce.title}
-							field={fields.roce.abv}
-							value={fields.roce.matches}
-							onChange={handleFieldChange}
-						/>
-						<FormField
-							title={fields.roe.title}
-							field={fields.roe.abv}
-							value={fields.roe.matches}
-							onChange={handleFieldChange}
-						/>
-					</div>
+						<div className='my-3'>
+							<Heading size='md' className='mb-2'>
+								Rate of Return
+							</Heading>
+							<FormField
+								title={matchCriterias.roce.title}
+								field={matchCriterias.roce.abv}
+								value={matchCriterias.roce.matches}
+								onChange={handleMatchCriteriaChange}
+							/>
+							<FormField
+								title={matchCriterias.roe.title}
+								field={matchCriterias.roe.abv}
+								value={matchCriterias.roe.matches}
+								onChange={handleMatchCriteriaChange}
+							/>
+						</div>
 
-					<div className='mb-6'>
-						<Heading size='md' className='mb-2'>
-							Growth Rates
-						</Heading>
-						<FormField
-							title={fields.sps.title}
-							field={fields.sps.abv}
-							value={fields.sps.matches}
-							onChange={handleFieldChange}
-						/>
-						<FormField
-							title={fields.eps.title}
-							field={fields.eps.abv}
-							value={fields.eps.matches}
-							onChange={handleFieldChange}
-						/>
-						<FormField
-							title={fields.bvps.title}
-							field={fields.bvps.abv}
-							value={fields.bvps.matches}
-							onChange={handleFieldChange}
-						/>
-					</div>
+						<div className='mb-6'>
+							<Heading size='md' className='mb-2'>
+								Growth Rates
+							</Heading>
+							<FormField
+								title={matchCriterias.sps.title}
+								field={matchCriterias.sps.abv}
+								value={matchCriterias.sps.matches}
+								onChange={handleMatchCriteriaChange}
+							/>
+							<FormField
+								title={matchCriterias.eps.title}
+								field={matchCriterias.eps.abv}
+								value={matchCriterias.eps.matches}
+								onChange={handleMatchCriteriaChange}
+							/>
+							<FormField
+								title={matchCriterias.bvps.title}
+								field={matchCriterias.bvps.abv}
+								value={matchCriterias.bvps.matches}
+								onChange={handleMatchCriteriaChange}
+							/>
+						</div>
 
-					<div className='mb-6'>
-						<Heading size='md' className='mb-2'>
-							Valuation Ratios
-						</Heading>
-						<FormField
-							title={fields.pe.title}
-							field={fields.pe.abv}
-							value={fields.pe.matches}
-							onChange={handleFieldChange}
-						/>
-					</div>
+						<div className='mb-6'>
+							<Heading size='md' className='mb-2'>
+								Valuation Ratios
+							</Heading>
+							<FormField
+								title={matchCriterias.pe.title}
+								field={matchCriterias.pe.abv}
+								value={matchCriterias.pe.matches}
+								onChange={handleMatchCriteriaChange}
+							/>
+						</div>
 
-					<div className='mb-6'>
-						<Heading size='md' className='mb-2'>
-							Debt Profile
-						</Heading>
-						<FormField
-							title={fields.cr.title}
-							field={fields.cr.abv}
-							value={fields.cr.matches}
-							onChange={handleFieldChange}
-						/>
-					</div>
+						<div className='mb-6'>
+							<Heading size='md' className='mb-2'>
+								Debt Profile
+							</Heading>
+							<FormField
+								title={matchCriterias.cr.title}
+								field={matchCriterias.cr.abv}
+								value={matchCriterias.cr.matches}
+								onChange={handleMatchCriteriaChange}
+							/>
+						</div>
+					</section>
 				</section>
 				<Button type='button' onClick={handleSave}>
 					Save
 				</Button>
 			</form>
 			<ToastContainer />
-		</div>
-	);
-};
-
-// Updated FormField Component
-interface FormFieldProps {
-	title: string;
-	field: keyof MetricsObject;
-	value: string;
-	onChange: (field: keyof MetricsObject, value: string) => void;
-}
-
-const FormField: React.FC<FormFieldProps> = ({
-	title,
-	field,
-	value,
-	onChange,
-}) => {
-	return (
-		<div className='mb-2'>
-			<Label htmlFor={field} value={title} />
-			<TextInput
-				type='text'
-				name={field}
-				value={value}
-				onChange={(e) => onChange(field, e.target.value)}
-				className='mt-1'
-			/>
 		</div>
 	);
 };

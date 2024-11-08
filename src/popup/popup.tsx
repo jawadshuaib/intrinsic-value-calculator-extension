@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './popup.css';
-import { getStoredFields, Metric, MetricsObject } from '../storage/storage';
+import {
+	DEFAULT_METRICS,
+	getStoredFields,
+	getStoredOptions,
+	MetricsObject,
+	OptionsObject,
+} from '../storage/storage';
 import { RateOfReturnSection } from '../components/rateOfReturn/RateOfReturnSection';
 import { GrowthRateSection } from '../components/growthRate/GrowthRateSection';
 import { ValuationsRatioSection } from '../components/valuationRatios/ValuationRatios';
@@ -11,6 +17,9 @@ import { DebtProfileSection } from '../components/debt/DebtProfileSection';
 
 const App = function () {
 	const [metrics, setMetrics] = useState<MetricsObject | null>(null);
+	const [options, setOptions] = useState<OptionsObject>(
+		DEFAULT_METRICS.options
+	);
 
 	function hasValueLengthGreaterThanOne(data: MetricsObject) {
 		for (let key in data) {
@@ -32,6 +41,18 @@ const App = function () {
 		});
 	}, []);
 
+	// Get stored options on initial render
+	// We are particularly interested in the "ignoreFirst" flag
+	useEffect(() => {
+		getStoredOptions()
+			.then((storedOptions) => {
+				setOptions(storedOptions || DEFAULT_METRICS.options);
+			})
+			.catch(() => {
+				console.log('Failed to load stored options.');
+			});
+	}, []);
+
 	if (!metrics)
 		return (
 			<div className='not-found py-5 text-lg text-center h-10'>
@@ -41,11 +62,11 @@ const App = function () {
 
 	return (
 		<section className='popup'>
-			<Score metrics={metrics} />
-			<IntrinsicValue metrics={metrics} />
-			<RateOfReturnSection metrics={metrics} />
-			<GrowthRateSection metrics={metrics} />
-			<ValuationsRatioSection metrics={metrics} />
+			<Score metrics={metrics} options={options} />
+			<IntrinsicValue metrics={metrics} options={options} />
+			<RateOfReturnSection metrics={metrics} options={options} />
+			<GrowthRateSection metrics={metrics} options={options} />
+			<ValuationsRatioSection metrics={metrics} options={options} />
 			<DebtProfileSection metrics={metrics} />
 		</section>
 	);

@@ -14,7 +14,6 @@ export default function calculateCAGR(
 	): number {
 		return Math.pow(endValue / startValue, 1 / periods) - 1;
 	}
-
 	// If ignoreFirst is true, use a slice of arr without the first element
 	const effectiveArr = ignoreFirst ? arr.slice(1) : arr;
 	const lengthFull = effectiveArr.length;

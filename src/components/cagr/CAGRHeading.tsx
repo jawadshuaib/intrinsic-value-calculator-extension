@@ -2,8 +2,14 @@ import React from 'react';
 import { Table } from 'flowbite-react';
 import calculateCAGR from '../../../utils/calculateCAGR';
 
-export const CAGRHeading = function ({ values }: { values: number[] }) {
-	const cagrs = calculateCAGR(values);
+export const CAGRHeading = function ({
+	values,
+	ignoreFirst,
+}: {
+	values: number[];
+	ignoreFirst: boolean;
+}) {
+	const cagrs = calculateCAGR(values, ignoreFirst);
 	return (
 		<Table.Head className='text-center'>
 			<Table.HeadCell>&nbsp;</Table.HeadCell>

@@ -13,6 +13,7 @@ interface MedianCellProps {
 	thresholds?: Thresholds;
 	showPercentage: boolean;
 	showScore: boolean;
+	ignoreFirst?: boolean;
 }
 
 export const MedianCell = function ({
@@ -21,10 +22,11 @@ export const MedianCell = function ({
 	thresholds,
 	showPercentage,
 	showScore = true,
+	ignoreFirst = false,
 }: MedianCellProps) {
 	if (values.length === 0) return;
 
-	const medians = calculateMedian(values);
+	const medians = calculateMedian(values, ignoreFirst);
 
 	const current = medians.current.median;
 	const half = medians.half.median;
