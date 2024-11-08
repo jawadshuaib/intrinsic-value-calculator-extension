@@ -1,8 +1,8 @@
 import React from 'react';
-import { MetricsObject, OptionsObject } from '../../storage/storage';
-import calculateGrowthRate from '../../../utils/calculateGrowthRate';
-import calculatePERatios from '../../../utils/calculatePERatios';
-import filterMetricsByAbv from '../../../utils/filterMetricsByAbv';
+import { MetricsObject, OptionsObject } from '../../../storage/storage';
+import calculateGrowthRate from '../../../../utils/calculateGrowthRate';
+import calculatePERatios from '../../../../utils/calculatePERatios';
+import filterMetricsByAbv from '../../../../utils/filterMetricsByAbv';
 import SensitivityTable from './SensitivityTable';
 
 export const IntrinsicValue = function ({

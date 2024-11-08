@@ -3,15 +3,15 @@ import {
 	MetricsObject,
 	OptionsObject,
 	RateOfReturn,
-} from '../../storage/storage';
-import calculateMedian from '../../../utils/calculateMedian';
+} from '../../../storage/storage';
+import calculateMedian from '../../../../utils/calculateMedian';
 import calculateOverallScore, {
 	OverallScoreThresholds,
-} from '../../../utils/calculateOverallScore';
+} from '../../../../utils/calculateOverallScore';
 import { RateOfReturnThresholds } from '../rateOfReturn/RateOfReturnSection';
-import filterMetricsBySection from '../../../utils/filterMetricsBySection';
-import extractMetricsData from '../../../utils/extractMetricsData';
-import { getColor } from '../../../utils/getColor';
+import filterMetricsBySection from '../../../../utils/filterMetricsBySection';
+import extractMetricsData from '../../../../utils/extractMetricsData';
+import { getColor } from '../../../../utils/getColor';
 
 export const RateOfReturnScore = function ({
 	metrics,

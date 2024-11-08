@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
 	MetricsObject,
 	OptionsObject,
 	RateOfReturn,
-} from '../../storage/storage';
-import { MedianTable } from '../median/MedianTable';
-import { MedianHeading } from '../median/MedianHeading';
-import { MedianBody } from '../median/MedianBody';
-import filterMetricsBySection from '../../../utils/filterMetricsBySection';
-import extractMetricsData from '../../../utils/extractMetricsData';
+} from '../../../storage/storage';
+import { MedianTable } from '../../median/MedianTable';
+import { MedianHeading } from '../../median/MedianHeading';
+import { MedianBody } from '../../median/MedianBody';
+import filterMetricsBySection from '../../../../utils/filterMetricsBySection';
+import extractMetricsData from '../../../../utils/extractMetricsData';
 
 export const RateOfReturnThresholds = {
 	great: 20,

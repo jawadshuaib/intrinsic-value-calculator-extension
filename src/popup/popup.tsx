@@ -8,14 +8,15 @@ import {
 	MetricsObject,
 	OptionsObject,
 } from '../storage/storage';
-import { RateOfReturnSection } from '../components/rateOfReturn/RateOfReturnSection';
-import { GrowthRateSection } from '../components/growthRate/GrowthRateSection';
-import { ValuationsRatioSection } from '../components/valuationRatios/ValuationRatios';
-import { Score } from '../components/score/Score';
-import { IntrinsicValue } from '../components/valuation/IntrinsicValue';
-import { DebtProfileSection } from '../components/debt/DebtProfileSection';
+import { RateOfReturnSection } from '../components/body/rateOfReturn/RateOfReturnSection';
+import { GrowthRateSection } from '../components/body/growthRate/GrowthRateSection';
+import { ValuationsRatioSection } from '../components/body/valuationRatios/ValuationRatios';
+import { Score } from '../components/body/score/Score';
+import { IntrinsicValue } from '../components/body/valuation/IntrinsicValue';
+import { DebtProfileSection } from '../components/body/debt/DebtProfileSection';
 import useDelayedExecution from '../hook/useDelayedExecution';
 import { Loader } from '../../ui/Loader';
+import PageTitle from '../components/header/PageTitle';
 
 const App = function () {
 	const [metrics, setMetrics] = useState<MetricsObject | null>(null);
@@ -28,7 +29,7 @@ const App = function () {
 	// It is a bit hacky but it works.
 	useDelayedExecution(() => {
 		setForceExecute(true);
-	}, 100);
+	}, 400);
 
 	function hasValueLengthGreaterThanOne(data: MetricsObject) {
 		for (let key in data) {
@@ -81,6 +82,7 @@ const App = function () {
 
 	return (
 		<section className='popup'>
+			<PageTitle />
 			<Score metrics={metrics} options={options} />
 			<IntrinsicValue metrics={metrics} options={options} />
 			<RateOfReturnSection metrics={metrics} options={options} />

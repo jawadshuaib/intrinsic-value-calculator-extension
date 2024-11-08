@@ -3,15 +3,15 @@ import {
 	GrowthRates,
 	MetricsObject,
 	OptionsObject,
-} from '../../storage/storage';
+} from '../../../storage/storage';
 import calculateOverallScore, {
 	OverallScoreThresholds,
-} from '../../../utils/calculateOverallScore';
+} from '../../../../utils/calculateOverallScore';
 import { RateOfReturnThresholds } from '../rateOfReturn/RateOfReturnSection';
-import filterMetricsBySection from '../../../utils/filterMetricsBySection';
-import extractMetricsData from '../../../utils/extractMetricsData';
-import calculateCAGR from '../../../utils/calculateCAGR';
-import { getColor } from '../../../utils/getColor';
+import filterMetricsBySection from '../../../../utils/filterMetricsBySection';
+import extractMetricsData from '../../../../utils/extractMetricsData';
+import calculateCAGR from '../../../../utils/calculateCAGR';
+import { getColor } from '../../../../utils/getColor';
 
 export const GrowthRateScore = function ({
 	metrics,

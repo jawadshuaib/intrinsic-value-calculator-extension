@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { MetricsObject, OptionsObject } from '../../storage/storage';
+import { MetricsObject, OptionsObject } from '../../../storage/storage';
 import { RateOfReturnScore } from './RateOfReturnScore';
 import { GrowthRateScore } from './GrowthRateScore';
 import AverageScore from './AverageScore';
 import { CustomFlowbiteTheme, Table } from 'flowbite-react';
-import { OverallScoreThresholds } from '../../../utils/calculateOverallScore';
-import { getColor } from '../../../utils/getColor';
+import { OverallScoreThresholds } from '../../../../utils/calculateOverallScore';
+import { getColor } from '../../../../utils/getColor';
 
 export const Score = function ({
 	metrics,

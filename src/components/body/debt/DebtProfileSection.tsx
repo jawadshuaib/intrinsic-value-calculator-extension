@@ -1,5 +1,5 @@
 import React from 'react';
-import { MetricsObject } from '../../storage/storage';
+import { MetricsObject } from '../../../storage/storage';
 import { CurrentRatio } from './CurrentRatio';
 
 export const DebtProfileSection = function ({

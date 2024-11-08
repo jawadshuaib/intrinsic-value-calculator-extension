@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
 	GrowthRates,
 	MetricsObject,
 	OptionsObject,
-} from '../../storage/storage';
-import { CAGRTable } from '../cagr/CAGRTable';
-import { CAGRHeading } from '../cagr/CAGRHeading';
-import { CAGRBody } from '../cagr/CAGRBody';
-import filterMetricsBySection from '../../../utils/filterMetricsBySection';
-import extractMetricsData from '../../../utils/extractMetricsData';
+} from '../../../storage/storage';
+import { CAGRTable } from '../../cagr/CAGRTable';
+import { CAGRHeading } from '../../cagr/CAGRHeading';
+import { CAGRBody } from '../../cagr/CAGRBody';
+import filterMetricsBySection from '../../../../utils/filterMetricsBySection';
+import extractMetricsData from '../../../../utils/extractMetricsData';
 
 // GrowthRateSection filters and displays all metrics in the growth_rate section
 export const GrowthRateSection = function ({

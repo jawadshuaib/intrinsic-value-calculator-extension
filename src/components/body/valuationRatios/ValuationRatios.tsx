@@ -3,12 +3,12 @@ import {
 	MetricsObject,
 	OptionsObject,
 	ValuationRatios,
-} from '../../storage/storage';
-import { MedianTable } from '../median/MedianTable';
-import { MedianHeading } from '../median/MedianHeading';
-import { MedianBody } from '../median/MedianBody';
-import filterMetricsBySection from '../../../utils/filterMetricsBySection';
-import extractMetricsData from '../../../utils/extractMetricsData';
+} from '../../../storage/storage';
+import { MedianTable } from '../../median/MedianTable';
+import { MedianHeading } from '../../median/MedianHeading';
+import { MedianBody } from '../../median/MedianBody';
+import filterMetricsBySection from '../../../../utils/filterMetricsBySection';
+import extractMetricsData from '../../../../utils/extractMetricsData';
 
 // Filters and displays all metrics in the valuation_ratios section
 export const ValuationsRatioSection = function ({

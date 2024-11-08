@@ -1,5 +1,5 @@
 import React from 'react';
-import calculateIntrinsicValue from '../../../utils/calculateIntrinsicValue';
+import calculateIntrinsicValue from '../../../../utils/calculateIntrinsicValue';
 import { Table } from 'flowbite-react';
 const SensitivityTableCell = ({
 	currentEPS,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { MetricsObject } from '../../storage/storage';
+import { MetricsObject } from '../../../storage/storage';
 export const EPS = function ({ metrics }: { metrics: MetricsObject }) {
 	const epsMetrics = Object.entries(metrics).filter(
 		([_, metric]) => metric.abv === 'eps'

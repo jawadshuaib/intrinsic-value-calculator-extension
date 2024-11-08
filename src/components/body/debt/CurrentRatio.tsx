@@ -1,7 +1,7 @@
 import React from 'react';
-import { MetricsObject } from '../../storage/storage';
-import { Thresholds } from '../types';
-import { getColor } from '../../../utils/getColor';
+import { MetricsObject } from '../../../storage/storage';
+import { Thresholds } from '../../types';
+import { getColor } from '../../../../utils/getColor';
 export const CurrentRatio = function ({ metrics }: { metrics: MetricsObject }) {
 	const crMetrics = Object.entries(metrics).filter(
 		([_, metric]) => metric.abv === 'cr'
