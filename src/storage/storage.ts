@@ -102,7 +102,15 @@ export type OptionsObject = LocalStorage['options'];
 
 type LocalStorageKeys = keyof LocalStorage;
 
-export function setStoredFields(fields: LocalStorage): Promise<void> {
+export function setStoredFields(fields: LocalStorage | null): Promise<void> {
+	if (!fields) {
+		// Clear all fields if null is passed
+		return new Promise((resolve, reject) => {
+			chrome.storage.local.clear(() => {
+				resolve();
+			});
+		});
+	}
 	return new Promise((resolve) => {
 		chrome.storage.local.set(fields, () => {
 			resolve();

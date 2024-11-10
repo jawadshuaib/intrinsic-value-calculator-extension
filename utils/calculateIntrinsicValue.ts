@@ -35,13 +35,3 @@ export default function calculateIntrinsicValue(
 		marginOfSafetyPrice: parseFloat(marginOfSafetyPrice.toFixed(2)),
 	};
 }
-
-// Example usage:
-// const currentEPS = 5; // Current EPS of the stock
-// const futurePE = 15; // Expected future P/E ratio
-// const futureGrowthRate = 10; // Expected growth rate in percentage
-// const requiredRateOfReturn = 15; // Required rate of return in percentage
-
-// const result = calculateIntrinsicValue(currentEPS, futurePE, futureGrowthRate, requiredRateOfReturn);
-// console.log('Intrinsic Value:', result.intrinsicValue);
-// console.log('Margin of Safety Price:', result.marginOfSafetyPrice);

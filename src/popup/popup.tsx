@@ -18,6 +18,7 @@ import useDelayedExecution from '../hook/useDelayedExecution';
 import { Loader } from '../../ui/Loader';
 import PageTitle from '../components/header/PageTitle';
 import { PEG } from '../components/peg/PEG';
+import hasValueLengthGreaterThanOne from '../../utils/hasValueLengthGreaterThanOne';
 
 const App = function () {
 	const [metrics, setMetrics] = useState<MetricsObject | null>(null);
@@ -32,24 +33,15 @@ const App = function () {
 		setForceExecute(true);
 	}, 400);
 
-	function hasValueLengthGreaterThanOne(data: MetricsObject) {
-		for (let key in data) {
-			if (data[key].values && data[key].values.length > 1) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	useEffect(() => {
 		// Send a message to the background script to execute the contentScript
 		chrome.runtime.sendMessage({ action: 'runContentScript' }, () => {
 			// Fetch the updated fields after contentScript runs
 			getStoredFields().then((metrics) => {
-				if (!hasValueLengthGreaterThanOne(metrics)) return;
-
-				setMetrics(metrics);
 				setDidScrape(true);
+
+				if (!hasValueLengthGreaterThanOne(metrics)) return;
+				setMetrics(metrics);
 			});
 		});
 	}, [forceExecute]);
@@ -73,7 +65,7 @@ const App = function () {
 		);
 	}
 
-	if (!metrics && !options) {
+	if (!metrics || !options) {
 		return (
 			<section className='not-found py-5 text-lg text-center h-10'>
 				Unable to find valuation metrics on this page.

@@ -3,6 +3,7 @@ import { EPS, MetricsObject, PE } from '../../storage/storage';
 import filterMetricsByAbv from '../../../utils/filterMetricsByAbv';
 import extractMetricsData from '../../../utils/extractMetricsData';
 import calculateCAGR from '../../../utils/calculateCAGR';
+
 export const PEG = function ({ metrics }: { metrics: MetricsObject }) {
 	const epsMetrics = filterMetricsByAbv(metrics, EPS);
 	const peMetrics = filterMetricsByAbv(metrics, PE);

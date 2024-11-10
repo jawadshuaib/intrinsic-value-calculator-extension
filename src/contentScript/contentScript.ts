@@ -19,10 +19,11 @@ getStoredFields().then((metrics: MetricsObject) => {
 		const tableRows = document.querySelectorAll('table.ui.table tbody tr');
 
 		if (!tableRows.length) {
+			setStoredFields(null); // Clear metrics if no rows found
 			console.warn(
 				'No table rows found in the provided table. Extraction skipped.'
 			);
-			return metrics; // Return original metrics if no rows found
+			return; // Return original metrics if no rows found
 		}
 
 		// Initialize result object, setting each metric's values as an empty array for storage
@@ -71,11 +72,12 @@ getStoredFields().then((metrics: MetricsObject) => {
 								const value = parseFloat(cell.getAttribute('data-value') || '');
 								if (!isNaN(value)) {
 									values.push(value); // Add parsed number if valid
-								} else {
-									console.warn(
-										`Invalid number found in cell at index ${index}. Skipping this value.`
-									);
 								}
+								// else {
+								// 	console.warn(
+								// 		`Invalid number found in cell at index ${index}. Skipping this value.`
+								// 	);
+								// }
 							}
 						});
 
@@ -86,7 +88,7 @@ getStoredFields().then((metrics: MetricsObject) => {
 					}
 				});
 			} catch (error) {
-				// console.error(`Error processing metric key "${key}":`, error);
+				console.error(`Error processing metric key "${key}":`, error);
 			}
 		});
 
@@ -97,6 +99,7 @@ getStoredFields().then((metrics: MetricsObject) => {
 	try {
 		// Execute extractValues to get updated metrics with values from the table
 		const updatedMetrics = extractValues();
+		if (!updatedMetrics) return; // Skip saving if no updated metrics found
 
 		// Format the updated metrics in LocalStorage structure for saving
 		const storageObject: LocalStorage = { metrics: updatedMetrics };
@@ -104,6 +107,6 @@ getStoredFields().then((metrics: MetricsObject) => {
 		// Save the updated metrics back to Chrome local storage
 		setStoredFields(storageObject);
 	} catch (error) {
-		// console.error('Failed to extract and save metrics:', error);
+		// .error('Failed to extract and save metrics:', error);
 	}
 });
