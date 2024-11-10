@@ -131,6 +131,12 @@ const App = function () {
 								value={matchCriterias.roe.matches}
 								onChange={handleMatchCriteriaChange}
 							/>
+							<FormField
+								title={matchCriterias.roa.title}
+								field={matchCriterias.roa.abv}
+								value={matchCriterias.roa.matches}
+								onChange={handleMatchCriteriaChange}
+							/>
 						</div>
 
 						<div className='mb-6'>

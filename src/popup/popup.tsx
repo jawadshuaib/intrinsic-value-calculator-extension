@@ -17,6 +17,7 @@ import { DebtProfileSection } from '../components/body/debt/DebtProfileSection';
 import useDelayedExecution from '../hook/useDelayedExecution';
 import { Loader } from '../../ui/Loader';
 import PageTitle from '../components/header/PageTitle';
+import { PEG } from '../components/peg/PEG';
 
 const App = function () {
 	const [metrics, setMetrics] = useState<MetricsObject | null>(null);
@@ -87,6 +88,7 @@ const App = function () {
 			<IntrinsicValue metrics={metrics} options={options} />
 			<RateOfReturnSection metrics={metrics} options={options} />
 			<GrowthRateSection metrics={metrics} options={options} />
+			<PEG metrics={metrics} />
 			<ValuationsRatioSection metrics={metrics} options={options} />
 			<DebtProfileSection metrics={metrics} />
 		</section>
