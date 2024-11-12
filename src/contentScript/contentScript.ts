@@ -16,13 +16,14 @@ getStoredFields().then((metrics: MetricsObject) => {
 	// Function to extract values from the web page's table rows
 	const extractValues = () => {
 		// Select all rows within the main table's body where the data is stored
-		const tableRows = document.querySelectorAll('table.ui.table tbody tr');
+		// table.ui.table tbody tr
+		const tableRows = document.querySelectorAll('tr');
 
 		if (!tableRows.length) {
 			setStoredFields(null); // Clear metrics if no rows found
-			console.warn(
-				'No table rows found in the provided table. Extraction skipped.'
-			);
+			// console.warn(
+			// 	'No table rows found in the provided table. Extraction skipped.'
+			// );
 			return; // Return original metrics if no rows found
 		}
 
@@ -108,6 +109,6 @@ getStoredFields().then((metrics: MetricsObject) => {
 		// Save the updated metrics back to Chrome local storage
 		setStoredFields(storageObject);
 	} catch (error) {
-		// .error('Failed to extract and save metrics:', error);
+		// console.error('Failed to extract and save metrics:', error);
 	}
 });
