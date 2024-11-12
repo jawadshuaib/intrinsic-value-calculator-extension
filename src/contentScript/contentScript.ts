@@ -56,13 +56,27 @@ getStoredFields().then((metrics: MetricsObject) => {
 						// 'td.val' is the class for the value cells
 						const valueCells = row.querySelectorAll('td'); // Select value cells in the row
 						if (!valueCells.length) {
-							console.warn('Value cells not found. Skipping row extraction.');
+							// console.warn('Value cells not found. Skipping row extraction.');
 							return; // Skip this row if value cells or headers are missing
 						}
 
 						// Loop through each value cell and parse values
-						valueCells.forEach((cell, index) => {
-							const value = parseFloat(cell.getAttribute('data-value') || '');
+						// valueCells.forEach((cell, index) => {
+						// 	const value = parseFloat(cell.getAttribute('data-value') || '');
+						// 	if (!isNaN(value)) {
+						// 		values.push(value); // Add parsed number if valid
+						// 	}
+						// });
+						valueCells.forEach((cell) => {
+							// Get the text content inside the cell and remove any HTML tags
+							const rawValue =
+								cell.textContent?.replace(/<[^>]*>/g, '').trim() || '';
+
+							// Remove any commas or special characters, leaving only numbers and periods
+							const cleanedValue = rawValue.replace(/[^0-9.]/g, '');
+
+							// Parse the cleaned value as a float and check if it is a valid number
+							const value = parseFloat(cleanedValue);
 							if (!isNaN(value)) {
 								values.push(value); // Add parsed number if valid
 							}
