@@ -17,7 +17,7 @@ export const MedianHeading = function ({
 			<Table.HeadCell>&nbsp;</Table.HeadCell>
 			<Table.HeadCell>{medians.current.length} year</Table.HeadCell>
 			<Table.HeadCell>{medians.half.length} years</Table.HeadCell>
-			<Table.HeadCell>{medians.full.length} years</Table.HeadCell>
+			<Table.HeadCell>{medians.full.length - 1} years</Table.HeadCell>
 			{showScore && <Table.HeadCell>Score</Table.HeadCell>}
 		</Table.Head>
 	);

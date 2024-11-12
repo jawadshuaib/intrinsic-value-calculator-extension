@@ -17,7 +17,7 @@ export const CAGRHeading = function ({
 				<Table.HeadCell>1 year</Table.HeadCell>
 			)}
 			<Table.HeadCell>{cagrs.half.length} years</Table.HeadCell>
-			<Table.HeadCell>{cagrs.full.length} years</Table.HeadCell>
+			<Table.HeadCell>{cagrs.full.length - 1} years</Table.HeadCell>
 			<Table.HeadCell>Score</Table.HeadCell>
 		</Table.Head>
 	);
