@@ -62,15 +62,16 @@ export const DEFAULT_METRICS: LocalStorage = {
 		sps: {
 			section: GrowthRates,
 			abv: 'sps',
-			title: 'Sales per Share',
-			matches: 'SPS,Sales per Share,Revenue per Share',
+			title: 'Revenue',
+			matches:
+				'SPS,Sales per Share,Revenue per Share,Total Revenue,Operating Revenue',
 			method: CAGR,
 		},
 		eps: {
 			section: GrowthRates,
 			abv: 'eps',
 			title: 'Earnings per Share',
-			matches: 'EPS,Earnings per Share',
+			matches: 'EPS,Earnings per Share,Basic EPS,Diluted EPS',
 			method: CAGR,
 		},
 		bvps: {

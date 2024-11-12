@@ -17,7 +17,7 @@ getStoredFields().then((metrics: MetricsObject) => {
 	const extractValues = () => {
 		// Select all rows within the main table's body where the data is stored
 		// table.ui.table tbody tr
-		const tableRows = document.querySelectorAll('tr');
+		const tableRows = document.querySelectorAll('table tbody tr');
 
 		if (!tableRows.length) {
 			setStoredFields(null); // Clear metrics if no rows found
@@ -39,7 +39,7 @@ getStoredFields().then((metrics: MetricsObject) => {
 				// Loop through each row in the table to find and extract relevant data
 				tableRows.forEach((row) => {
 					// Removed td.title-cell to make it more generic
-					const titleCell = row.querySelector('td'); // Locate the title cell
+					const titleCell = row.querySelector('td.title-cell'); // Locate the title cell
 
 					if (!titleCell) {
 						return; // Skip this row if title cell is not found
@@ -55,7 +55,7 @@ getStoredFields().then((metrics: MetricsObject) => {
 					if (matches) {
 						const values: number[] = []; // Array to store numeric values for this row
 						// 'td.val' is the class for the value cells
-						const valueCells = row.querySelectorAll('td'); // Select value cells in the row
+						const valueCells = row.querySelectorAll('td.val'); // Select value cells in the row
 						if (!valueCells.length) {
 							// console.warn('Value cells not found. Skipping row extraction.');
 							return; // Skip this row if value cells or headers are missing
@@ -90,7 +90,7 @@ getStoredFields().then((metrics: MetricsObject) => {
 					}
 				});
 			} catch (error) {
-				console.error(`Error processing metric key "${key}":`, error);
+				// console.error(`Error processing metric key "${key}":`, error);
 			}
 		});
 
