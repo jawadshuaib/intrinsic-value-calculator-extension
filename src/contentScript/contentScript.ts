@@ -37,7 +37,8 @@ getStoredFields().then((metrics: MetricsObject) => {
 			try {
 				// Loop through each row in the table to find and extract relevant data
 				tableRows.forEach((row) => {
-					const titleCell = row.querySelector('td.title-cell'); // Locate the title cell
+					// Removed td.title-cell to make it more generic
+					const titleCell = row.querySelector('td'); // Locate the title cell
 
 					if (!titleCell) {
 						return; // Skip this row if title cell is not found
@@ -52,32 +53,18 @@ getStoredFields().then((metrics: MetricsObject) => {
 					// If a match is found, extract numerical values from the corresponding row
 					if (matches) {
 						const values: number[] = []; // Array to store numeric values for this row
-						const valueCells = row.querySelectorAll('td.val'); // Select value cells in the row
-						const headerCells = document.querySelectorAll(
-							'table.ui.table thead th'
-						); // Select header cells for reference
-
-						if (!valueCells.length || !headerCells.length) {
-							console.warn(
-								'Value cells or header cells not found. Skipping row extraction.'
-							);
+						// 'td.val' is the class for the value cells
+						const valueCells = row.querySelectorAll('td'); // Select value cells in the row
+						if (!valueCells.length) {
+							console.warn('Value cells not found. Skipping row extraction.');
 							return; // Skip this row if value cells or headers are missing
 						}
 
 						// Loop through each value cell and parse values
 						valueCells.forEach((cell, index) => {
-							const headerCell = headerCells[index + 1]; // Get the relevant header (skip first)
-
-							if (headerCell) {
-								const value = parseFloat(cell.getAttribute('data-value') || '');
-								if (!isNaN(value)) {
-									values.push(value); // Add parsed number if valid
-								}
-								// else {
-								// 	console.warn(
-								// 		`Invalid number found in cell at index ${index}. Skipping this value.`
-								// 	);
-								// }
+							const value = parseFloat(cell.getAttribute('data-value') || '');
+							if (!isNaN(value)) {
+								values.push(value); // Add parsed number if valid
 							}
 						});
 
