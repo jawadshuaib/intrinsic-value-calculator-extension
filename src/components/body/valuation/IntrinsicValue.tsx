@@ -4,6 +4,7 @@ import calculateGrowthRate from '../../../../utils/calculateGrowthRate';
 import calculatePERatios from '../../../../utils/calculatePERatios';
 import filterMetricsByAbv from '../../../../utils/filterMetricsByAbv';
 import SensitivityTable from './SensitivityTable';
+import Paragraph from '../../../../ui/Paragraph';
 
 export const IntrinsicValue = function ({
 	metrics,
@@ -30,6 +31,9 @@ export const IntrinsicValue = function ({
 	return (
 		<section className='my-3'>
 			<h2 className='text-xl mb-2'>Intrinsic Valuations</h2>
+			<Paragraph className='text-slate-600'>
+				Current Growth Rate: {growthRate.toFixed(0)}%
+			</Paragraph>
 			<SensitivityTable
 				ror={ror}
 				currentEPS={currentEPS}
