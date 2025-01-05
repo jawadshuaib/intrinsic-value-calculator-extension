@@ -16,6 +16,12 @@ Intrinsic Value Calculator is a Chrome extension designed to help users evaluate
 
 ---
 
+## Screenshot
+
+![Screenshot of Intrinsic Value Calculator Extension](./screenshot.png)
+
+---
+
 ## Manual Installation Guide
 
 Since this extension is not currently available in the Chrome Web Store, you can install it manually. Follow these steps:
