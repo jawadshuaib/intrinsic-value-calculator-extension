@@ -1,6 +1,7 @@
-type StockValuationResult = {
+export type StockValuationResult = {
 	intrinsicValue: number;
 	marginOfSafetyPrice: number;
+	error?: string | null;
 };
 
 export default function calculateIntrinsicValue(
