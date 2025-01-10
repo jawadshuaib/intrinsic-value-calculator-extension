@@ -7,23 +7,26 @@ const SensitivityTableCell = ({
 	growthRate,
 	discountRate,
 	terminalGrowthRate,
+	marginOfSafety,
 }: {
 	eps: number;
 	growthRate: number;
 	discountRate: number;
 	terminalGrowthRate: number;
+	marginOfSafety: number;
 }) => {
 	const { intrinsicValue, marginOfSafetyPrice } =
 		calculateIntrinsicValueUsingEPS(
 			eps,
 			growthRate,
 			discountRate,
-			terminalGrowthRate
+			terminalGrowthRate,
+			marginOfSafety
 		);
 	return (
 		<Table.Cell className='text-center'>
 			<div
-				title={`Intrinsic value at a discount rate of ${discountRate}, terminal growth of ${terminalGrowthRate}, growth rate of ${growthRate}%`}
+				title={`Intrinsic value at a discount rate of ${discountRate}%, terminal growth of ${terminalGrowthRate}%, growth rate of ${growthRate}%`}
 				className='cursor-default'
 			>
 				{intrinsicValue.toFixed(0)}

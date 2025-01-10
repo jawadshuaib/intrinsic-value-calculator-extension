@@ -7,13 +7,12 @@ export type StockValuationResult = {
 	error?: string | null;
 };
 
-const MARGIN_OF_SAFETY = 0.5;
-
-export default function calculateIntrinsicValueUsingEPS(
+export default function (
 	eps: number,
 	growthRate: number,
 	discountRate: number,
-	terminalGrowthRate: number
+	terminalGrowthRate: number,
+	marginOfSafety: number
 ): StockValuationResult {
 	try {
 		if (eps <= 0) {
@@ -28,7 +27,7 @@ export default function calculateIntrinsicValueUsingEPS(
 			growthRate: growthRate / 100,
 			terminalGrowthRate: terminalGrowthRate / 100,
 			discountRate: discountRate / 100,
-			marginOfSafety: MARGIN_OF_SAFETY,
+			marginOfSafety: marginOfSafety / 100,
 		});
 
 		const result = calculator.calculate();

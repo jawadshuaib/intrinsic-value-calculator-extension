@@ -6,11 +6,13 @@ const SensitivityTable = ({
 	epsRatios,
 	discountRate,
 	terminalGrowthRate,
+	marginOfSafety,
 	growthRates,
 }: {
 	epsRatios: number[];
 	discountRate: number;
 	terminalGrowthRate: number;
+	marginOfSafety: number;
 	growthRates: number[];
 }) => {
 	const currentEPS = epsRatios[0];
@@ -40,6 +42,7 @@ const SensitivityTable = ({
 							growthRate={parseFloat(growthRate.toFixed(0))}
 							discountRate={discountRate}
 							terminalGrowthRate={terminalGrowthRate}
+							marginOfSafety={marginOfSafety}
 						/>
 					))}
 				</Table.Row>
@@ -54,6 +57,7 @@ const SensitivityTable = ({
 							growthRate={parseFloat(growthRate.toFixed(0))}
 							discountRate={discountRate}
 							terminalGrowthRate={terminalGrowthRate}
+							marginOfSafety={marginOfSafety}
 						/>
 					))}
 				</Table.Row>

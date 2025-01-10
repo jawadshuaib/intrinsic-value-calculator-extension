@@ -4,6 +4,7 @@ import calculateGrowthRate from '../../../../utils/calculateGrowthRate';
 import filterMetricsByAbv from '../../../../utils/filterMetricsByAbv';
 import SensitivityTable from './SensitivityTable';
 import calculateEPSRatios from '../../../../utils/calculateEPSRatios';
+import { VALUATION_DEFAULTS } from '../../../../utils/settings';
 
 export const IntrinsicValue = function ({
 	metrics,
@@ -22,8 +23,9 @@ export const IntrinsicValue = function ({
 
 	const epsRatios = calculateEPSRatios(metrics, options);
 	const growthRate = calculateGrowthRate(metrics, options);
-	const discountRate = 15;
-	const terminalGrowthRate = 4;
+	const discountRate = VALUATION_DEFAULTS.discountRate;
+	const terminalGrowthRate = VALUATION_DEFAULTS.terminalGrowthRate;
+	const marginOfSafety = VALUATION_DEFAULTS.marginOfSafety;
 
 	const growthRates = [
 		growthRate * 0.4,
@@ -41,6 +43,7 @@ export const IntrinsicValue = function ({
 				epsRatios={epsRatios}
 				discountRate={discountRate}
 				terminalGrowthRate={terminalGrowthRate}
+				marginOfSafety={marginOfSafety}
 				growthRates={growthRates}
 			/>
 		</section>
