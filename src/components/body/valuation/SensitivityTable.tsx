@@ -33,7 +33,7 @@ const SensitivityTable = ({
 			<Table.Body>
 				<Table.Row>
 					<Table.Cell className='font-medium text-center'>
-						Current ({currentEPS}):
+						Current @{currentEPS}:
 					</Table.Cell>
 					{growthRates.map((growthRate, colIndex) => (
 						<SensitivityTableCell
@@ -48,7 +48,7 @@ const SensitivityTable = ({
 				</Table.Row>
 				<Table.Row>
 					<Table.Cell className='font-medium text-center'>
-						Median ({medianEPS}):
+						Median @{medianEPS}:
 					</Table.Cell>
 					{growthRates.map((growthRate, colIndex) => (
 						<SensitivityTableCell
