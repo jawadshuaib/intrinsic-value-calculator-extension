@@ -1,6 +1,11 @@
 // This method employs a DCF using EPS to calculate the intrinsic value of a stock.
-import { StockValuationResult } from './calculateIntrinsicValue';
-import { IntrinsicValueCalculator, ValidationError } from './dcf/eps';
+import { IntrinsicValueCalculator, ValidationError } from './valuations/eps';
+
+export type StockValuationResult = {
+	intrinsicValue: number;
+	marginOfSafetyPrice: number;
+	error?: string | null;
+};
 
 const MARGIN_OF_SAFETY = 0.5;
 
