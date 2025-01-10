@@ -1,11 +1,9 @@
 import React from 'react';
 import { MetricsObject, OptionsObject } from '../../../storage/storage';
 import calculateGrowthRate from '../../../../utils/calculateGrowthRate';
-// import calculatePERatios from '../../../../utils/calculatePERatios';
 import filterMetricsByAbv from '../../../../utils/filterMetricsByAbv';
-// import SensitivityTable from './SensitivityTable';
 import Paragraph from '../../../../ui/Paragraph';
-import SensitivityTable2 from './SensitivityTable2';
+import SensitivityTable from './SensitivityTable';
 import calculateEPSRatios from '../../../../utils/calculateEPSRatios';
 
 export const IntrinsicValue = function ({
@@ -24,8 +22,6 @@ export const IntrinsicValue = function ({
 	// const peRatios = calculatePERatios(metrics, options).sort((a, b) => a - b);
 
 	const epsRatios = calculateEPSRatios(metrics, options);
-	const currentEPS = epsRatios[0];
-
 	const growthRate = calculateGrowthRate(metrics, options);
 	const discountRate = 15;
 	const terminalGrowthRate = 4;
@@ -42,13 +38,7 @@ export const IntrinsicValue = function ({
 			<Paragraph className='text-slate-600'>
 				Current Growth Rate: {growthRate.toFixed(0)}%
 			</Paragraph>
-			{/* <SensitivityTable
-				ror={ror}
-				currentEPS={currentEPS}
-				peRatios={peRatios}
-				growthRates={growthRates}
-			/> */}
-			<SensitivityTable2
+			<SensitivityTable
 				epsRatios={epsRatios}
 				discountRate={discountRate}
 				terminalGrowthRate={terminalGrowthRate}

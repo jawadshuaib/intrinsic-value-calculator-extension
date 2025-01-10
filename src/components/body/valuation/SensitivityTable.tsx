@@ -1,21 +1,27 @@
 import { Table } from 'flowbite-react';
 import React from 'react';
 import SensitivityTableCell from './SensitivityTableCell';
+
 const SensitivityTable = ({
-	ror,
-	currentEPS,
-	peRatios,
+	epsRatios,
+	discountRate,
+	terminalGrowthRate,
 	growthRates,
 }: {
-	ror: number;
-	currentEPS: number;
-	peRatios: number[];
+	epsRatios: number[];
+	discountRate: number;
+	terminalGrowthRate: number;
 	growthRates: number[];
 }) => {
+	const currentEPS = epsRatios[0];
+	// Get last value of array which is median over the entire range of
+	// available EPS values.
+	const medianEPS = epsRatios[epsRatios.length - 1];
+
 	return (
 		<Table hoverable={true}>
 			<Table.Head>
-				<Table.HeadCell className='text-center'>Future P/E</Table.HeadCell>
+				<Table.HeadCell className='text-center'>EPS</Table.HeadCell>
 				{growthRates.map((rate, index) => (
 					<Table.HeadCell key={index} className='text-center'>
 						Growth Rate {rate.toFixed(0)}%
@@ -23,20 +29,34 @@ const SensitivityTable = ({
 				))}
 			</Table.Head>
 			<Table.Body>
-				{peRatios.map((pe, rowIndex) => (
-					<Table.Row key={rowIndex}>
-						<Table.Cell className='font-medium text-center'>{pe}</Table.Cell>
-						{growthRates.map((rate, colIndex) => (
-							<SensitivityTableCell
-								key={colIndex}
-								currentEPS={currentEPS}
-								pe={pe}
-								rate={parseFloat(rate.toFixed(0))}
-								ror={ror}
-							/>
-						))}
-					</Table.Row>
-				))}
+				<Table.Row>
+					<Table.Cell className='font-medium text-center'>
+						Current ({currentEPS}):
+					</Table.Cell>
+					{growthRates.map((growthRate, colIndex) => (
+						<SensitivityTableCell
+							key={colIndex}
+							eps={currentEPS}
+							growthRate={parseFloat(growthRate.toFixed(0))}
+							discountRate={discountRate}
+							terminalGrowthRate={terminalGrowthRate}
+						/>
+					))}
+				</Table.Row>
+				<Table.Row>
+					<Table.Cell className='font-medium text-center'>
+						Median ({medianEPS}):
+					</Table.Cell>
+					{growthRates.map((growthRate, colIndex) => (
+						<SensitivityTableCell
+							key={colIndex}
+							eps={medianEPS}
+							growthRate={parseFloat(growthRate.toFixed(0))}
+							discountRate={discountRate}
+							terminalGrowthRate={terminalGrowthRate}
+						/>
+					))}
+				</Table.Row>
 			</Table.Body>
 		</Table>
 	);
